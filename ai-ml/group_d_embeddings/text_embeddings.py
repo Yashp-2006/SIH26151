@@ -84,3 +84,41 @@ def build_text_embedding_candidate(
         doc_ref=doc_ref,
         extra={"similarity_score": sim, "method": "character_trigram_cosine"},
     )
+
+# --- LSH Scalability Fix ---
+try:
+    from datasketch import MinHash, MinHashLSH
+except ImportError:
+    MinHash = None
+    MinHashLSH = None
+
+class FastTextMatcherLSH:
+    """
+    Solves O(N^2) scalability bottleneck using Locality Sensitive Hashing (MinHash).
+    Allows indexing millions of documents and retrieving near-matches in O(1) time.
+    """
+    def __init__(self, threshold=0.7, num_perm=128):
+        if MinHashLSH is None:
+            raise ImportError("datasketch is required for LSH. Install it via 'pip install datasketch'.")
+        self.lsh = MinHashLSH(threshold=threshold, num_perm=num_perm)
+        self.num_perm = num_perm
+        self.doc_store = {}
+
+    def _get_minhash(self, text: str) -> MinHash:
+        m = MinHash(num_perm=self.num_perm)
+        text = redact_identifiers(text)
+        ngrams = _char_ngram_vector(text)
+        for ngram in ngrams.keys():
+            m.update(ngram.encode("utf-8"))
+        return m
+
+    def insert(self, doc_id: str, text: str):
+        """Insert a document into the LSH index."""
+        m = self._get_minhash(text)
+        self.lsh.insert(doc_id, m)
+        self.doc_store[doc_id] = text
+
+    def query(self, text: str) -> list[str]:
+        """Query the index for similar documents."""
+        m = self._get_minhash(text)
+        return self.lsh.query(m)
