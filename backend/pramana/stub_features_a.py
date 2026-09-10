@@ -20,14 +20,6 @@ try:
 except ModuleNotFoundError:
     from schema import Observation
 
-# indicator -> evidence family (Blueprint F1-F9)
-FAMILY_OF = {
-    "pgp_fp":      "F1",   # cryptographic
-    "asn":         "F3",   # infrastructure
-    "contact_id":  "F4",   # contact
-    "template_id": "F5",   # content artefact
-    "image_id":    "F5",   # content artefact
-}
 
 
 def _resolve_path(filename):

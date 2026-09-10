@@ -10,7 +10,6 @@ SIH26151/
         .env.example
         .gitignore
         README.md
-        evidence_writer.py
         requirements.txt
         cloudflare-workers/
             deploy.ps1
@@ -55,7 +54,6 @@ SIH26151/
             contracts.py
             data_loader.py
     backend/
-        .gitkeep
         README.md
         requirements.txt
         pramana/

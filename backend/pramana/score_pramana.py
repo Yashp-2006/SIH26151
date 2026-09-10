@@ -35,10 +35,6 @@ MERGE_THRESHOLD = 2.0
 CAPS = {"F1": 4.0, "F2": 2.0, "F3": 2.5, "F4": 3.0, "F5": 2.5,
         "F6": 1.0, "F7": 0.7, "F8": 1.0, "F9": 3.0}
 
-FAMILY_NAME = {"F1": "cryptographic", "F2": "financial", "F3": "infrastructure",
-               "F4": "contact", "F5": "content artefact", "F6": "linguistic",
-               "F7": "behavioural", "F8": "social", "F9": "external"}
-
 
 # --------------------------------------------------------------- fusion
 

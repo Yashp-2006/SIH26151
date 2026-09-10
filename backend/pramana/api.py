@@ -55,6 +55,8 @@ def assess(req: PairRequest):
     if a not in _accounts or b not in _accounts:
         raise HTTPException(404, "unknown account_id")
     pid = f"{a}__{b}"
+    if pid in _cache and not req.include_naive:
+        return _cache[pid]
     obs = _obs.get(pid)
     if obs is None:
         obs = observations_for_pair(pid, _accounts[a], _accounts[b])

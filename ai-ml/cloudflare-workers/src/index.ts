@@ -137,8 +137,9 @@ function handleWallet(body: unknown): Response {
   for (const tx of transactions) {
     const inputs = tx.inputs ?? [];
     if (inputs.length > 1) {
-      const existing = inputs.find(a => clusters[a]) ? clusters[inputs.find(a => clusters[a])!] : inputs[0];
-      for (const addr of inputs) clusters[addr] = existing;
+      const existing = inputs.find(a => clusters[a]);
+      const target = existing ? clusters[existing] : inputs[0];
+      for (const addr of inputs) clusters[addr] = target;
     }
   }
   // path compression
