@@ -117,11 +117,11 @@ Deterministic offline evidence review. **Fully implemented and tested.** No mode
 
 ---
 
-### `backend/` — PRAMANA Evidence Fusion Engine & API Server (List B)
+### `ai-ml/pramana/` — PRAMANA Evidence Fusion Engine (List B)
 
-Person B's deliverable: Evidence Fusion Engine, independence-aware likelihood-ratio scoring, and FastAPI REST service. Fully implemented and tested.
+Person B's deliverable: Evidence Fusion Engine, independence-aware likelihood-ratio scoring, and FastAPI service. Fully implemented and tested.
 
-**Verified:** Python 3.11/3.13, pytest 9.1 — **10 passed in 0.47s.**
+**Verified:** Python 3.11/3.13, pytest 9.1 — **10 passed in 0.44s.**
 
 #### Measured Performance on RANGE-SIM v0.1
 
@@ -146,6 +146,20 @@ Person B's deliverable: Evidence Fusion Engine, independence-aware likelihood-ra
 | `POST` | `/assess` | Score pair given `{ account_a, account_b, include_naive? }` |
 | `POST` | `/precompute` | Evaluates all candidate pairs at startup into memory cache |
 | `GET` | `/balance_sheet/{a}/{b}` | Outputs complete Evidence Balance Sheet with family breakdowns and discount traces |
+
+---
+
+### `backend/` — API Server *(Planned)*
+
+| Planned component | Purpose |
+|---|---|
+| FastAPI app | REST endpoints wrapping the PRAMANA evidence pipeline |
+| PostgreSQL 16 | Evidence/history storage, graph views, retraction log |
+| Auth layer | JWT / Cloudflare Access; Z1–Z4 trust zone enforcement |
+| Review persistence | Analyst notes, reviewer decisions, retraction history |
+| Graph projection | Evidence graph views over PostgreSQL (no separate graph DB) |
+
+> Prerequisite: DC-06 field-level promotion contract must be resolved before evidence tables can be populated.
 
 ---
 
@@ -202,13 +216,12 @@ python -m pytest group_b_nlp/test_group_b.py
 python -m pytest group_c_wallet_infra/test_group_c.py
 ```
 
-### Backend & Fusion Engine (List B)
+### AI/ML List-B Fusion Engine
 ```powershell
-cd backend
-pip install -r requirements.txt
+cd ai-ml
 python -m pramana.range_sim    # generate synthetic corpus
 python -m pramana.demo         # full ablation + balance sheets demo
-python -m pytest tests/test_fusion.py -v
+pytest tests/test_fusion.py -v
 uvicorn pramana.api:app --port 8000
 ```
 
@@ -228,9 +241,9 @@ npx wrangler deploy   # deploys to *.workers.dev
 | Module | Status | Notes |
 |---|---|---|
 | `ai-ml` List-A | Complete | 6 Python modules + TypeScript Worker + tests |
-| `ai-ml` List-B | Pending | NLP/ML model layer |
+| `ai-ml` List-B | Complete | PRAMANA fusion engine (`ai-ml/pramana/`), 10 passing tests (1.5% false merge) |
 | `cybersec` | Implemented & Tested | 76 passing tests, bounded real validation |
-| `backend` (List B) | Implemented & Tested | PRAMANA fusion engine, FastAPI REST API, 10 passing tests (1.5% false merge) |
+| `backend` | Planned | REST API layer over evidence ledger |
 | `frontend` | Planned | Needs backend API first |
 
 ---

@@ -50,12 +50,6 @@ SIH26151/
             Dockerfile
             app.py
             requirements.txt
-        shared/
-            contracts.py
-            data_loader.py
-    backend/
-        README.md
-        requirements.txt
         pramana/
             __init__.py
             accounts.json
@@ -71,8 +65,14 @@ SIH26151/
             score_pramana.py
             sensitivity.py
             stub_features_a.py
+        shared/
+            contracts.py
+            data_loader.py
         tests/
             test_fusion.py
+    backend/
+        README.md
+        requirements.txt
     cybersec/
         PRAMANA_FINAL_PROJECT_HANDOFF_v1.md
         PRAMANA_REPRODUCTION_GUIDE_v1.md
