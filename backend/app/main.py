@@ -11,21 +11,29 @@ import hashlib
 import json
 import os
 import sys
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Annotated, Literal
-from urllib.parse import urlsplit
 
-from fastapi import FastAPI, HTTPException, Path as FastAPIPath, status
+from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import (
     BaseModel,
     ConfigDict,
-    Field,
     FiniteFloat,
     JsonValue,
     StringConstraints,
     model_validator,
 )
+from sqlalchemy.ext.asyncio import AsyncSession
+from aiokafka import AIOKafkaProducer
+
+from backend.app.database import init_db, get_db, ListingEventModel
+from backend.app.auth import Token, create_access_token, get_current_user, TokenData
+
+KAFKA_BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
+producer = None
 
 Identifier = Annotated[
     str,
@@ -48,30 +56,6 @@ class StrictModel(BaseModel):
     )
 
 
-class EvidenceCandidate(StrictModel):
-    subject_a: Identifier
-    subject_b: Identifier
-    family: Family
-    raw_log_lr: FiniteFloat
-    rarity_factor: FiniteFloat
-    independence_key: Identifier
-    polarity: Literal["+", "-"]
-    detector_version: Identifier
-    doc_ref: Identifier
-    extra: dict[str, JsonValue] | None = None
-
-
-class AttributionRequest(StrictModel):
-    account_a: Identifier
-    account_b: Identifier
-
-    @model_validator(mode="after")
-    def require_distinct_accounts(self) -> AttributionRequest:
-        if self.account_a == self.account_b:
-            raise ValueError("Two distinct observed account references are required")
-        return self
-
-
 class ListingEvent(StrictModel):
     event_id: Identifier
     account_id: Identifier
@@ -82,23 +66,23 @@ class ListingEvent(StrictModel):
 
 
 class IngestRequest(StrictModel):
-    topic: Literal["pramana.listings.simulated"] = "pramana.listings.simulated"
+    topic: Literal["pramana.listings"] = "pramana.listings"
     listing: ListingEvent
 
 
 class IngestAcknowledgement(StrictModel):
-    mode: Literal["simulation"] = "simulation"
+    mode: Literal["production"] = "production"
     received: Literal[True] = True
     receipt_sha256: str
     event_id: Identifier
-    topic: Literal["pramana.listings.simulated"]
-    persisted: Literal[False] = False
-    broker_offset_committed: Literal[False] = False
+    topic: str
+    persisted: bool = True
+    broker_offset_committed: bool = True
     evidence_promoted: Literal[False] = False
 
 
 class BalanceSheetResponse(StrictModel):
-    mode: Literal["simulation"] = "simulation"
+    mode: Literal["production"] = "production"
     account_a: Identifier
     account_b: Identifier
     status: Literal["not_run"] = "not_run"
@@ -110,102 +94,108 @@ class BalanceSheetResponse(StrictModel):
     hard_veto_status: Literal["not_run"] = "not_run"
     promotion_status: Literal["blocked_DC-06"] = "blocked_DC-06"
     review_state: Literal["awaiting_human_review"] = "awaiting_human_review"
-    limitations: tuple[str, ...] = (
-        "No ML engine was called.",
-        "No account existence or provenance verification was performed.",
-        "No evidence was promoted, scored, or used for a veto.",
-        "No identity claim or persona acceptance is produced.",
-    )
 
 
-def configured_origins() -> list[str]:
-    origins: list[str] = []
-    for value in os.getenv("PRAMANA_CORS_ORIGINS", "").split(","):
-        origin = value.strip()
-        if not origin:
-            continue
-        parsed = urlsplit(origin)
-        if origin not in origins:
-            origins.append(origin)
-    return origins
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    global producer
+    await init_db()
+    
+    # Try connecting to Kafka, fail gracefully if Kafka isn't running (for local dev)
+    try:
+        producer = AIOKafkaProducer(bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS)
+        await producer.start()
+        print("Kafka Producer started")
+    except Exception as e:
+        print(f"Warning: Could not connect to Kafka broker at {KAFKA_BOOTSTRAP_SERVERS}. Running without Kafka.")
+        producer = None
+        
+    yield
+    # Shutdown
+    if producer:
+        await producer.stop()
 
 
 def create_app() -> FastAPI:
     gateway = FastAPI(
         title="PRAMANA — The Ledger Gateway",
-        version="0.1.0",
-        description="Contract prototype for The Ledger API boundary.",
+        version="0.2.0",
+        description="Production API boundary with Auth, DB, and Kafka integration.",
+        lifespan=lifespan
     )
 
     gateway.add_middleware(
         CORSMiddleware,
-        allow_origins=configured_origins() or ["*"], # Open for demo
+        allow_origins=["*"],
         allow_credentials=False,
         allow_methods=["GET", "POST"],
         allow_headers=["Content-Type"],
         max_age=600,
     )
 
+    @gateway.post("/token", response_model=Token, tags=["auth"])
+    async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+        # In a real app, verify against the DB. Here we use a dummy check.
+        if form_data.username != "admin" or form_data.password != "admin":
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect username or password",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        access_token = create_access_token(data={"sub": form_data.username})
+        return {"access_token": access_token, "token_type": "bearer"}
+
     @gateway.get("/health/live", tags=["health"])
     async def liveness() -> dict[str, str]:
-        return {"status": "alive", "mode": "simulation"}
+        return {"status": "alive", "mode": "production", "kafka": "connected" if producer else "disconnected"}
 
     @gateway.post("/stream/ingest", tags=["ledger"], response_model=IngestAcknowledgement)
-    async def ingest(request: IngestRequest) -> IngestAcknowledgement:
-        payload = json.dumps(
-            request.model_dump(mode="json"),
-            sort_keys=True, separators=(",", ":")
-        ).encode("utf-8")
+    async def ingest(
+        request: IngestRequest, 
+        current_user: Annotated[TokenData, Depends(get_current_user)],
+        db: AsyncSession = Depends(get_db)
+    ) -> IngestAcknowledgement:
+        
+        payload_dict = request.model_dump(mode="json")
+        payload = json.dumps(payload_dict, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        
+        # 1. Persist to Database
+        db_event = ListingEventModel(
+            event_id=request.listing.event_id,
+            account_id=request.listing.account_id,
+            source_ref=request.listing.source_ref,
+            snapshot_ref=request.listing.snapshot_ref,
+            listing_ref=request.listing.listing_ref,
+            content=request.listing.content
+        )
+        db.add(db_event)
+        await db.commit()
+        
+        # 2. Produce to Kafka
+        kafka_success = False
+        if producer:
+            try:
+                await producer.send_and_wait(request.topic, payload)
+                kafka_success = True
+            except Exception as e:
+                print(f"Failed to produce to Kafka: {e}")
+
         return IngestAcknowledgement(
             receipt_sha256=hashlib.sha256(payload).hexdigest(),
             event_id=request.listing.event_id,
             topic=request.topic,
+            persisted=True,
+            broker_offset_committed=kafka_success,
         )
 
     @gateway.get("/assess/{account_a}/{account_b}", tags=["ledger"], response_model=BalanceSheetResponse)
-    async def assess(account_a: str, account_b: str) -> BalanceSheetResponse:
+    async def assess(
+        account_a: str, 
+        account_b: str,
+        current_user: Annotated[TokenData, Depends(get_current_user)],
+    ) -> BalanceSheetResponse:
         return BalanceSheetResponse(account_a=account_a, account_b=account_b)
-
-    # --- GEMINI INTEGRATION: EMPIRICAL CALIBRATION ---
-    @gateway.get("/calibration/tippett", tags=["math"])
-    async def get_tippett_calibration():
-        """Returns the Empirical Calibration metrics (ECE & Tippett) natively hooking into the ML engine."""
-        aiml_path = str(Path(__file__).resolve().parent.parent.parent.parent / "ai-ml")
-        if aiml_path not in sys.path:
-            sys.path.insert(0, aiml_path)
-        
-        try:
-            from pramana.evaluate import load_key
-            from pramana.stub_features_a import emit_all
-            from pramana.rarity import RarityIndex
-            from pramana.score_pramana import assess as pramana_assess
-            from pramana.calibration import expected_calibration_error, generate_tippett_coordinates
-            
-            directory = Path(aiml_path) / "pramana"
-            accounts, pairs, obs_by_pair = emit_all(directory / "accounts.json", directory / "pairs.csv")
-            rarity = RarityIndex(directory / "accounts.json")
-            key = load_key(directory / "answer_key.csv")
-            
-            predictions = []
-            for r in pairs:
-                a, b = r["account_a"], r["account_b"]
-                pid = f"{a}__{b}"
-                t = (key[a] == key[b])
-                obs = obs_by_pair[pid]
-                p = pramana_assess(pid, a, b, obs, rarity, accounts)
-                if p.issued and not p.excluded:
-                    predictions.append((p.log_lr, t))
-            
-            ece = expected_calibration_error(predictions)
-            tippett = generate_tippett_coordinates(predictions)
-            
-            return {
-                "ece_score": ece,
-                "model": "pramana-core-v0.1",
-                "tippett_data": tippett
-            }
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=str(e))
 
     return gateway
 
