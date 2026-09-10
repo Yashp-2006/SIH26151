@@ -117,17 +117,35 @@ Deterministic offline evidence review. **Fully implemented and tested.** No mode
 
 ---
 
-### `backend/` — API Server *(Planned)*
+### `backend/` — PRAMANA Evidence Fusion Engine & API Server (List B)
 
-| Planned component | Purpose |
-|---|---|
-| FastAPI app | REST endpoints wrapping the PRAMANA evidence pipeline |
-| PostgreSQL 16 | Evidence/history storage, graph views, retraction log |
-| Auth layer | JWT / Cloudflare Access; Z1–Z4 trust zone enforcement |
-| Review persistence | Analyst notes, reviewer decisions, retraction history |
-| Graph projection | Evidence graph views over PostgreSQL (no separate graph DB) |
+Person B's deliverable: Evidence Fusion Engine, independence-aware likelihood-ratio scoring, and FastAPI REST service. Fully implemented and tested.
 
-> Prerequisite: DC-06 field-level promotion contract must be resolved before evidence tables can be populated.
+**Verified:** Python 3.11/3.13, pytest 9.1 — **10 passed in 0.47s.**
+
+#### Measured Performance on RANGE-SIM v0.1
+
+| Metric | Naive Additive | No Grouping | PRAMANA (Shipped) |
+|---|---|---|---|
+| **False-Merge Rate** | 29.8% | 3.5% | **1.5%** |
+| False Merges (Count) | 239 | 28 | **12** |
+| **Precision** | 28.2% | 75.2% | **87.6%** |
+| **Recall** | 94.9% | 85.9% | **85.9%** |
+| **F1 Score** | 0.435 | 0.802 | **0.867** |
+| Decoys Refused | 0/20 | 20/20 | **20/20** |
+| Assessments Refused ($k < 2$) | 0 | — | **803** |
+
+*Corpus: 900 candidate pairs across 60 synthetic operators (99 positive, 801 negative, 20 planted decoys, 10 planted handovers).*
+*Residual failures: 10 of the 12 false merges are planted account handovers (resold accounts genuinely inheriting seller identifiers, measuring residual risk).*
+
+#### Endpoints (`pramana.api`)
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/health` | Service status, pinned parameter version (`v0.1`), asserted priors |
+| `POST` | `/assess` | Score pair given `{ account_a, account_b, include_naive? }` |
+| `POST` | `/precompute` | Evaluates all candidate pairs at startup into memory cache |
+| `GET` | `/balance_sheet/{a}/{b}` | Outputs complete Evidence Balance Sheet with family breakdowns and discount traces |
 
 ---
 
@@ -184,11 +202,22 @@ python -m pytest group_b_nlp/test_group_b.py
 python -m pytest group_c_wallet_infra/test_group_c.py
 ```
 
+### Backend & Fusion Engine (List B)
+```powershell
+cd backend
+pip install -r requirements.txt
+python -m pramana.range_sim    # generate synthetic corpus
+python -m pramana.demo         # full ablation + balance sheets demo
+python -m pytest tests/test_fusion.py -v
+uvicorn pramana.api:app --port 8000
+```
+
 ### Cloudflare Worker (free tier)
 ```powershell
 cd ai-ml/cloudflare-workers
 npm install
 npx wrangler login    # browser OAuth
+npx wrangler dev      # local development with 7 routes (/extract, /rarity, /wallet, /temporal, /infra, /template, /assess)
 npx wrangler deploy   # deploys to *.workers.dev
 ```
 
@@ -201,7 +230,7 @@ npx wrangler deploy   # deploys to *.workers.dev
 | `ai-ml` List-A | Complete | 6 Python modules + TypeScript Worker + tests |
 | `ai-ml` List-B | Pending | NLP/ML model layer |
 | `cybersec` | Implemented & Tested | 76 passing tests, bounded real validation |
-| `backend` | Planned | Needs DC-06 before evidence tables |
+| `backend` (List B) | Implemented & Tested | PRAMANA fusion engine, FastAPI REST API, 10 passing tests (1.5% false merge) |
 | `frontend` | Planned | Needs backend API first |
 
 ---

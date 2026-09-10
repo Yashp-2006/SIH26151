@@ -34,6 +34,7 @@ export default {
       case "/temporal": return handleTemporal(body);
       case "/infra":    return handleInfra(body);
       case "/template": return handleTemplate(body);
+      case "/assess":   return handleAssess(body);
       default:          return apiError("NOT_FOUND", `No route at ${pathname}`, 404);
     }
   },
@@ -243,3 +244,252 @@ async function handleTemplate(body: unknown): Promise<Response> {
 
   return json({ fingerprint: hashHex });
 }
+
+// ── /assess — port of score_pramana.py (PRAMANA Fusion Engine) ───────────────
+
+const FUSION_CAPS: Record<string, number> = {
+  F1: 4.0, F2: 2.0, F3: 2.5, F4: 3.0, F5: 2.5,
+  F6: 1.0, F7: 0.7, F8: 1.0, F9: 3.0,
+};
+
+interface FusionObs {
+  family: string;
+  indicator_type: string;
+  indicator_value: string;
+  match_type: string;
+  independence_key: string;
+  similarity?: number;
+  n_raw_hits?: number;
+}
+
+interface AccountInfo {
+  contact_id?: string;
+  pgp_fp?: string;
+  [key: string]: unknown;
+}
+
+function verbalBand(x: number): string {
+  if (x >= 3.0) return "STRONG";
+  if (x >= 2.0) return "MODERATELY STRONG";
+  if (x >= 1.0) return "MODERATE";
+  return "LIMITED";
+}
+
+function handleAssess(body: unknown): Response {
+  const req = body as {
+    pair_id?: string;
+    account_a?: string;
+    account_b?: string;
+    observations?: FusionObs[];
+    counts?: Record<string, number>;
+    total_accounts?: number;
+    accounts?: Record<string, AccountInfo>;
+    lambda?: number;
+    tau?: number;
+    k_min?: number;
+    ceiling?: number;
+  };
+
+  const observations = req.observations;
+  if (!Array.isArray(observations)) {
+    return apiError("MISSING_FIELD", "observations (array) required", 400);
+  }
+
+  const pairId = req.pair_id ?? "unknown__pair";
+  const accountA = req.account_a ?? "acc_a";
+  const accountB = req.account_b ?? "acc_b";
+  const lam = req.lambda ?? 0.2;
+  const tau = req.tau ?? 12;
+  const kMin = req.k_min ?? 2;
+  const ceiling = req.ceiling ?? 4.0;
+  const totalN = req.total_accounts ?? 137;
+  const counts = req.counts ?? {};
+  const accounts = req.accounts ?? {};
+
+  // Rarity weight helper
+  function getWeight(itype: string, val: string): { w: number; isHub: boolean; note: string } {
+    const key = `${itype}::${val}`;
+    const c = counts[key] ?? counts[val] ?? 1;
+    if (c > tau) {
+      return { w: 0.0, isHub: true, note: `hub: '${val}' seen ${c}x in corpus (tau=${tau}) -> forced to 0` };
+    }
+    const w = Math.round(Math.log10(totalN / c) * 1000) / 1000;
+    return { w, isHub: false, note: `rarity: seen ${c}/${totalN} -> log10(${totalN}/${c})=${w.toFixed(2)}` };
+  }
+
+  // Group by family
+  const byFamily: Record<string, FusionObs[]> = {};
+  for (const o of observations) {
+    if (!byFamily[o.family]) byFamily[o.family] = [];
+    byFamily[o.family].push(o);
+  }
+
+  const familyResults: Array<{
+    family: string;
+    raw_log_lr: number;
+    damped_log_lr: number;
+    capped_log_lr: number;
+    n_groups: number;
+    discount_reason: string;
+  }> = [];
+
+  const survivingObs: FusionObs[] = [];
+
+  for (const [fam, obsList] of Object.entries(byFamily)) {
+    const groups: Record<string, Array<{ w: number; o: FusionObs }>> = {};
+    const notes: string[] = [];
+
+    for (const o of obsList) {
+      const { w, isHub, note } = getWeight(o.indicator_type, o.indicator_value);
+      if (isHub || w === 0.0) {
+        notes.push(note);
+        continue;
+      }
+      survivingObs.push(o);
+      const key = o.independence_key;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push({ w, o });
+    }
+
+    if (Object.keys(groups).length === 0) {
+      familyResults.push({
+        family: fam,
+        raw_log_lr: 0.0,
+        damped_log_lr: 0.0,
+        capped_log_lr: 0.0,
+        n_groups: 0,
+        discount_reason: notes.join("; ") || "no surviving evidence",
+      });
+      continue;
+    }
+
+    const collapsed: Array<{ bestW: number; key: string; count: number; nRaw: number }> = [];
+    for (const [key, items] of Object.entries(groups)) {
+      items.sort((a, b) => b.w - a.w);
+      const bestW = items[0].w;
+      const nRaw = items.reduce((acc, it) => acc + (it.o.n_raw_hits ?? 1), 0);
+      collapsed.push({ bestW, key, count: items.length, nRaw });
+      if (items.length > 1 || nRaw > 1) {
+        notes.push(`${nRaw} raw retrieval(s) / ${items.length} artefact(s) on capture '${key.slice(0, 18)}' collapsed to 1 observation`);
+      }
+    }
+
+    collapsed.sort((a, b) => b.bestW - a.bestW);
+    const raw = collapsed.reduce((sum, c) => sum + c.bestW, 0);
+
+    let damped = 0.0;
+    for (let i = 0; i < collapsed.length; i++) {
+      const factor = Math.pow(lam, i);
+      damped += collapsed[i].bestW * factor;
+      if (i > 0) {
+        notes.push(`group ${i + 1} ('${collapsed[i].key.slice(0, 18)}') damped by lambda^${i}=${factor.toPrecision(3)}: ${collapsed[i].bestW.toFixed(2)} -> ${(collapsed[i].bestW * factor).toFixed(2)}`);
+      }
+    }
+
+    const cap = FUSION_CAPS[fam] ?? 3.0;
+    const capped = Math.min(damped, cap);
+    if (capped < damped) {
+      notes.push(`family cap ${cap} applied (${damped.toFixed(2)} -> ${capped.toFixed(2)})`);
+    }
+
+    familyResults.push({
+      family: fam,
+      raw_log_lr: Math.round(raw * 1000) / 1000,
+      damped_log_lr: Math.round(damped * 1000) / 1000,
+      capped_log_lr: Math.round(capped * 1000) / 1000,
+      n_groups: collapsed.length,
+      discount_reason: notes.join("; ") || "single independent group",
+    });
+  }
+
+  // Counter-evidence
+  const counterEvidence: Array<{
+    contradiction_class: string;
+    severity: string;
+    delta: number;
+    explanation: string;
+  }> = [];
+
+  const accA = accounts[accountA];
+  const accB = accounts[accountB];
+  if (accA && accB) {
+    if (
+      accA.contact_id &&
+      accB.contact_id &&
+      accA.contact_id !== accB.contact_id &&
+      accA.pgp_fp &&
+      accB.pgp_fp &&
+      accA.pgp_fp !== accB.pgp_fp &&
+      accA.pgp_fp !== "DEFAULT_BLOCK_1" &&
+      accB.pgp_fp !== "DEFAULT_BLOCK_1"
+    ) {
+      counterEvidence.push({
+        contradiction_class: "contradictory_identifiers",
+        severity: "soft",
+        delta: 0.4,
+        explanation: "both accounts publish distinct non-default PGP keys and distinct contact identifiers",
+      });
+    }
+  }
+
+  const survivingKeys = new Set(survivingObs.map(o => o.independence_key));
+  const survivingFams = new Set(survivingObs.map(o => o.family));
+  if (survivingFams.size >= 2 && survivingKeys.size === 1) {
+    counterEvidence.push({
+      contradiction_class: "shared_ecosystem_not_shared_control",
+      severity: "soft",
+      delta: 0.0,
+      explanation: `all surviving evidence across ${survivingFams.size} families traces to a single capture origin (${Array.from(survivingKeys)[0].slice(0, 20)}) - the apparent link is explained by common site configuration`,
+    });
+  }
+
+  const live = familyResults.filter(r => r.capped_log_lr > 0);
+  const kFamilies = live.length;
+  const distinctKeys = survivingKeys.size;
+  const kEffective = Math.min(kFamilies, distinctKeys);
+
+  const baseAssessment = {
+    pair_id: pairId,
+    account_a: accountA,
+    account_b: accountB,
+    issued: false,
+    excluded: false,
+    log_lr: null as number | null,
+    verbal_band: null as string | null,
+    family_count_k: kEffective,
+    distinct_independence_keys: distinctKeys,
+    families: familyResults,
+    counter_evidence: counterEvidence,
+    defence_hypothesis: "the identities are controlled by different actors and share a marketplace ecosystem",
+    limitations: [
+      "synthetic corpus (RANGE-SIM v0.1)",
+      `lambda=${lam}, tau=${tau}, and family caps are asserted design priors, not fitted`,
+      "no real-world identity claim is made",
+    ],
+    refusal_reason: "",
+    params_version: "v0.1",
+  };
+
+  const hard = counterEvidence.filter(c => c.severity === "hard");
+  if (hard.length > 0) {
+    baseAssessment.excluded = true;
+    baseAssessment.refusal_reason = `hard must-not-link: ${hard[0].contradiction_class}`;
+    return json(baseAssessment);
+  }
+
+  let totalScore = familyResults.reduce((sum, r) => sum + r.capped_log_lr, 0);
+  totalScore -= counterEvidence.reduce((sum, c) => sum + c.delta, 0);
+
+  if (kEffective < kMin) {
+    baseAssessment.refusal_reason = `k=${kEffective} independent origins < k_min=${kMin} (${kFamilies} families over ${distinctKeys} capture origin(s))`;
+    return json(baseAssessment);
+  }
+
+  const finalScore = Math.max(0.0, Math.min(totalScore, ceiling));
+  baseAssessment.issued = true;
+  baseAssessment.log_lr = Math.round(finalScore * 1000) / 1000;
+  baseAssessment.verbal_band = verbalBand(finalScore);
+
+  return json(baseAssessment);
+}
+

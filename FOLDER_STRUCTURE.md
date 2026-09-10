@@ -57,6 +57,24 @@ SIH26151/
     backend/
         .gitkeep
         README.md
+        requirements.txt
+        pramana/
+            __init__.py
+            accounts.json
+            answer_key.csv
+            api.py
+            demo.py
+            evaluate.py
+            pairs.csv
+            range_sim.py
+            rarity.py
+            schema.py
+            score_naive.py
+            score_pramana.py
+            sensitivity.py
+            stub_features_a.py
+        tests/
+            test_fusion.py
     cybersec/
         PRAMANA_FINAL_PROJECT_HANDOFF_v1.md
         PRAMANA_REPRODUCTION_GUIDE_v1.md
