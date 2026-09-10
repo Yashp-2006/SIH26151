@@ -1,0 +1,1595 @@
+[
+  {
+    "source_record": {
+      "id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        1,
+        "grams/2014-06-09/1776.csv",
+        1
+      ],
+      "archive_id": [
+        "archive",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6"
+      ],
+      "member_id": [
+        "member",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        1,
+        "grams/2014-06-09/1776.csv"
+      ],
+      "snapshot_id": [
+        "snapshot",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        "2014-06-09"
+      ],
+      "row_number": 1,
+      "raw_values": {
+        "hash": "9-2e0bff759d057e28460eaa5b2cb118e5",
+        "market_name": "1776",
+        "item_link": "http://n6tzonxy7sod7eqt.onion/Viewitem?itemid=2787",
+        "vendor_name": "ACAB23",
+        "price": "50.00000000",
+        "name": "1 gr indian Ketamin",
+        "description": "Very Strong Ketamin from India be careful i dont send to usa and Australia sorry only with FE and for your own risk",
+        "image_link": "http://n6tzonxy7sod7eqt.onion/image?item=2787",
+        "add_time": "1399918210",
+        "ship_from": "Austria"
+      },
+      "trailing_empty_cell": "",
+      "field_issues": [],
+      "adapter_version": "GWERN_GRAMS_ADAPTER_SPEC_v1"
+    },
+    "listing_observation": {
+      "id": [
+        "listing_observation",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ]
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        1,
+        "grams/2014-06-09/1776.csv",
+        1
+      ],
+      "snapshot_id": [
+        "snapshot",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        "2014-06-09"
+      ],
+      "source_hash_raw": "9-2e0bff759d057e28460eaa5b2cb118e5",
+      "source_hash_reference": [
+        "source_hash_reference",
+        "gwern-grams",
+        "1776",
+        "9-2e0bff759d057e28460eaa5b2cb118e5"
+      ],
+      "source_url_reference": [
+        "source_url_reference",
+        "gwern-grams",
+        "1776",
+        "http://n6tzonxy7sod7eqt.onion/Viewitem?itemid=2787"
+      ],
+      "item_reference": {
+        "raw": "http://n6tzonxy7sod7eqt.onion/Viewitem?itemid=2787",
+        "kind": "http_reference_candidate",
+        "field_ref": {
+          "record_id": [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            1,
+            "grams/2014-06-09/1776.csv",
+            1
+          ],
+          "column_position": 3,
+          "header_name": "item_link"
+        }
+      },
+      "observed_account_id": [
+        "observed_account",
+        "gwern-grams",
+        "1776",
+        "ACAB23"
+      ],
+      "title": "1 gr indian Ketamin",
+      "description": "Very Strong Ketamin from India be careful i dont send to usa and Australia sorry only with FE and for your own risk",
+      "price": {
+        "raw": "50.00000000",
+        "parse_status": "parsed_decimal",
+        "amount_decimal": "50",
+        "currency": null,
+        "field_ref": {
+          "record_id": [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            1,
+            "grams/2014-06-09/1776.csv",
+            1
+          ],
+          "column_position": 5,
+          "header_name": "price"
+        }
+      },
+      "canonical_listing_id": null,
+      "canonical_artefact_id": null
+    },
+    "observed_account": {
+      "id": [
+        "observed_account",
+        "gwern-grams",
+        "1776",
+        "ACAB23"
+      ],
+      "source_namespace": "gwern-grams",
+      "market_name_raw": "1776",
+      "vendor_name_raw": "ACAB23",
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        1,
+        "grams/2014-06-09/1776.csv",
+        1
+      ],
+      "market_field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "column_position": 2,
+        "header_name": "market_name"
+      },
+      "vendor_field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "column_position": 4,
+        "header_name": "vendor_name"
+      }
+    },
+    "image_reference": {
+      "id": [
+        "image_reference",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        8
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        1,
+        "grams/2014-06-09/1776.csv",
+        1
+      ],
+      "raw": "http://n6tzonxy7sod7eqt.onion/image?item=2787",
+      "kind": "http_reference_candidate",
+      "field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "column_position": 8,
+        "header_name": "image_link"
+      },
+      "image_bytes_ref": null,
+      "verified_archive_image_member": null
+    },
+    "timestamp": {
+      "id": [
+        "source_time",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        9
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        1,
+        "grams/2014-06-09/1776.csv",
+        1
+      ],
+      "field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "column_position": 9,
+        "header_name": "add_time"
+      },
+      "raw": "1399918210",
+      "parse_status": "parsed_integer",
+      "parsed_integer": 1399918210,
+      "classification": "UNKNOWN",
+      "semantic_status": "UNRESOLVED",
+      "epoch": null,
+      "unit": null,
+      "timezone": null,
+      "instant": null
+    },
+    "shipping_claim": {
+      "id": [
+        "shipping_claim",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        10
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        1,
+        "grams/2014-06-09/1776.csv",
+        1
+      ],
+      "raw": "Austria",
+      "interpretation": "unverified_source_claim",
+      "field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "column_position": 10,
+        "header_name": "ship_from"
+      },
+      "country_code": null,
+      "actual_location": null
+    },
+    "provenance": {
+      "archive_id": [
+        "archive",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6"
+      ],
+      "archive_sha256": "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+      "member_id": [
+        "member",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        1,
+        "grams/2014-06-09/1776.csv"
+      ],
+      "member_name_raw": "grams/2014-06-09/1776.csv",
+      "member_ordinal": 1,
+      "member_sha256": "d290f9caae27b73388cab9ab1a282ad6c8405f705af7f810fc4515ddfd2a1b9d",
+      "snapshot_id": [
+        "snapshot",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        "2014-06-09"
+      ],
+      "row_number": 1,
+      "schema_header": [
+        "hash",
+        "market_name",
+        "item_link",
+        "vendor_name",
+        "price",
+        "name",
+        "description",
+        "image_link",
+        "add_time",
+        "ship_from",
+        ""
+      ],
+      "adapter_version": "GWERN_GRAMS_ADAPTER_SPEC_v1",
+      "archive_member_mtime": 1402356912
+    },
+    "relations": [
+      {
+        "type": "record_in_snapshot",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "to_id": [
+          "snapshot",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          "2014-06-09"
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "field_refs": []
+      },
+      {
+        "type": "listing_observed_in_record",
+        "from_id": [
+          "listing_observation",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            1,
+            "grams/2014-06-09/1776.csv",
+            1
+          ]
+        ],
+        "to_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "field_refs": []
+      },
+      {
+        "type": "record_declares_vendor",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "to_id": [
+          "observed_account",
+          "gwern-grams",
+          "1776",
+          "ACAB23"
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              1,
+              "grams/2014-06-09/1776.csv",
+              1
+            ],
+            "column_position": 2,
+            "header_name": "market_name"
+          },
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              1,
+              "grams/2014-06-09/1776.csv",
+              1
+            ],
+            "column_position": 4,
+            "header_name": "vendor_name"
+          }
+        ]
+      },
+      {
+        "type": "record_has_image_reference",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "to_id": [
+          "image_reference",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            1,
+            "grams/2014-06-09/1776.csv",
+            1
+          ],
+          8
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              1,
+              "grams/2014-06-09/1776.csv",
+              1
+            ],
+            "column_position": 8,
+            "header_name": "image_link"
+          }
+        ]
+      },
+      {
+        "type": "record_has_shipping_claim",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "to_id": [
+          "shipping_claim",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            1,
+            "grams/2014-06-09/1776.csv",
+            1
+          ],
+          10
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              1,
+              "grams/2014-06-09/1776.csv",
+              1
+            ],
+            "column_position": 10,
+            "header_name": "ship_from"
+          }
+        ]
+      },
+      {
+        "type": "record_has_time_value",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "to_id": [
+          "source_time",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            1,
+            "grams/2014-06-09/1776.csv",
+            1
+          ],
+          9
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              1,
+              "grams/2014-06-09/1776.csv",
+              1
+            ],
+            "column_position": 9,
+            "header_name": "add_time"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_record": {
+      "id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        2,
+        "grams/2015-04-20/Abraxas.csv",
+        1
+      ],
+      "archive_id": [
+        "archive",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6"
+      ],
+      "member_id": [
+        "member",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        2,
+        "grams/2015-04-20/Abraxas.csv"
+      ],
+      "snapshot_id": [
+        "snapshot",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        "2015-04-20"
+      ],
+      "row_number": 1,
+      "raw_values": {
+        "hash": "7-18b2f6c44cccb450ea58ac460db0fd53",
+        "market_name": "Abraxas",
+        "item_link": "http://abraxasdegupusel.onion/listing/2OlUhQx9Rt",
+        "vendor_name": "3-Leg-Racer",
+        "price": "2851.78500000",
+        "name": "1 x 5mg DOM STP",
+        "description": "3 LEG RACER Please read my profile before ordering I am very proud to offer you the most rewarding compound from the DOx family DOM STP or 2 5 dimethoxy 4 methylamphetamine The high can be described as something between LSD and mescaline but closer to mescaline Experience varies greatly based on each indivdual and chosen dosage but in general there are much less side effects than with other DOx compounds Some users report to have the strongest trips of their lives with higher doses so keep that in mind before you drop a second or third tab Tabs are signed DOM 5mg on the backside to prevent selling them as LSD and putting someone s life at risk out of greed Dosage 0 5 1 hit 2 5 5mg light medium strong trip For some people 5mg will be a blast so better start small Duration should be similar to LSD experience except for the onset which takes about 1 2 hours 1 5 2 hits strong very strong trip for most of you Get ready for 6 8 hours of otherwordly peak and another 7 10 hours of slow comedown 2 5 3 hits heavy trip Only for the most experienced users Really do it only if you know what you are doing You won t be physically harmed but prepare for 8 10 hours of extremely strong peak during which you better have someone to take care of you unless you are a real psychedelic soldier Do not try this dose if you haven t tried DOM before You might be resistant to many psychedelics but you might be sensitive to this one you ll never know unless you try So please guys start small and stay safe we want you to get as beautiful experiences with our stuff as possible Product is vacuum sealed and professionally shipped All products come sealed in MBB along with excellent stealth Daily shipping cut of time is 2 30 pm Order before 2 30pm IT WILL BE SHIPPED Make sure your address is in the correct format Mr Super Hans 123 FAKE ST SYDNEY NSW 2000 If you have any questions please feel free to contact me anytime",
+        "image_link": "http://abraxasdegupusel.onion/uploads/",
+        "add_time": "1429352929",
+        "ship_from": "Australia"
+      },
+      "trailing_empty_cell": "",
+      "field_issues": [],
+      "adapter_version": "GWERN_GRAMS_ADAPTER_SPEC_v1"
+    },
+    "listing_observation": {
+      "id": [
+        "listing_observation",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ]
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        2,
+        "grams/2015-04-20/Abraxas.csv",
+        1
+      ],
+      "snapshot_id": [
+        "snapshot",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        "2015-04-20"
+      ],
+      "source_hash_raw": "7-18b2f6c44cccb450ea58ac460db0fd53",
+      "source_hash_reference": [
+        "source_hash_reference",
+        "gwern-grams",
+        "Abraxas",
+        "7-18b2f6c44cccb450ea58ac460db0fd53"
+      ],
+      "source_url_reference": [
+        "source_url_reference",
+        "gwern-grams",
+        "Abraxas",
+        "http://abraxasdegupusel.onion/listing/2OlUhQx9Rt"
+      ],
+      "item_reference": {
+        "raw": "http://abraxasdegupusel.onion/listing/2OlUhQx9Rt",
+        "kind": "http_reference_candidate",
+        "field_ref": {
+          "record_id": [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            2,
+            "grams/2015-04-20/Abraxas.csv",
+            1
+          ],
+          "column_position": 3,
+          "header_name": "item_link"
+        }
+      },
+      "observed_account_id": [
+        "observed_account",
+        "gwern-grams",
+        "Abraxas",
+        "3-Leg-Racer"
+      ],
+      "title": "1 x 5mg DOM STP",
+      "description": "3 LEG RACER Please read my profile before ordering I am very proud to offer you the most rewarding compound from the DOx family DOM STP or 2 5 dimethoxy 4 methylamphetamine The high can be described as something between LSD and mescaline but closer to mescaline Experience varies greatly based on each indivdual and chosen dosage but in general there are much less side effects than with other DOx compounds Some users report to have the strongest trips of their lives with higher doses so keep that in mind before you drop a second or third tab Tabs are signed DOM 5mg on the backside to prevent selling them as LSD and putting someone s life at risk out of greed Dosage 0 5 1 hit 2 5 5mg light medium strong trip For some people 5mg will be a blast so better start small Duration should be similar to LSD experience except for the onset which takes about 1 2 hours 1 5 2 hits strong very strong trip for most of you Get ready for 6 8 hours of otherwordly peak and another 7 10 hours of slow comedown 2 5 3 hits heavy trip Only for the most experienced users Really do it only if you know what you are doing You won t be physically harmed but prepare for 8 10 hours of extremely strong peak during which you better have someone to take care of you unless you are a real psychedelic soldier Do not try this dose if you haven t tried DOM before You might be resistant to many psychedelics but you might be sensitive to this one you ll never know unless you try So please guys start small and stay safe we want you to get as beautiful experiences with our stuff as possible Product is vacuum sealed and professionally shipped All products come sealed in MBB along with excellent stealth Daily shipping cut of time is 2 30 pm Order before 2 30pm IT WILL BE SHIPPED Make sure your address is in the correct format Mr Super Hans 123 FAKE ST SYDNEY NSW 2000 If you have any questions please feel free to contact me anytime",
+      "price": {
+        "raw": "2851.78500000",
+        "parse_status": "parsed_decimal",
+        "amount_decimal": "2851.785",
+        "currency": null,
+        "field_ref": {
+          "record_id": [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            2,
+            "grams/2015-04-20/Abraxas.csv",
+            1
+          ],
+          "column_position": 5,
+          "header_name": "price"
+        }
+      },
+      "canonical_listing_id": null,
+      "canonical_artefact_id": null
+    },
+    "observed_account": {
+      "id": [
+        "observed_account",
+        "gwern-grams",
+        "Abraxas",
+        "3-Leg-Racer"
+      ],
+      "source_namespace": "gwern-grams",
+      "market_name_raw": "Abraxas",
+      "vendor_name_raw": "3-Leg-Racer",
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        2,
+        "grams/2015-04-20/Abraxas.csv",
+        1
+      ],
+      "market_field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "column_position": 2,
+        "header_name": "market_name"
+      },
+      "vendor_field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "column_position": 4,
+        "header_name": "vendor_name"
+      }
+    },
+    "image_reference": {
+      "id": [
+        "image_reference",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        8
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        2,
+        "grams/2015-04-20/Abraxas.csv",
+        1
+      ],
+      "raw": "http://abraxasdegupusel.onion/uploads/",
+      "kind": "http_reference_candidate",
+      "field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "column_position": 8,
+        "header_name": "image_link"
+      },
+      "image_bytes_ref": null,
+      "verified_archive_image_member": null
+    },
+    "timestamp": {
+      "id": [
+        "source_time",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        9
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        2,
+        "grams/2015-04-20/Abraxas.csv",
+        1
+      ],
+      "field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "column_position": 9,
+        "header_name": "add_time"
+      },
+      "raw": "1429352929",
+      "parse_status": "parsed_integer",
+      "parsed_integer": 1429352929,
+      "classification": "UNKNOWN",
+      "semantic_status": "UNRESOLVED",
+      "epoch": null,
+      "unit": null,
+      "timezone": null,
+      "instant": null
+    },
+    "shipping_claim": {
+      "id": [
+        "shipping_claim",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        10
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        2,
+        "grams/2015-04-20/Abraxas.csv",
+        1
+      ],
+      "raw": "Australia",
+      "interpretation": "unverified_source_claim",
+      "field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "column_position": 10,
+        "header_name": "ship_from"
+      },
+      "country_code": null,
+      "actual_location": null
+    },
+    "provenance": {
+      "archive_id": [
+        "archive",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6"
+      ],
+      "archive_sha256": "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+      "member_id": [
+        "member",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        2,
+        "grams/2015-04-20/Abraxas.csv"
+      ],
+      "member_name_raw": "grams/2015-04-20/Abraxas.csv",
+      "member_ordinal": 2,
+      "member_sha256": "9da13515007b3519668804b273158d65eb189677e743f49ea280b78cf19ccbd8",
+      "snapshot_id": [
+        "snapshot",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        "2015-04-20"
+      ],
+      "row_number": 1,
+      "schema_header": [
+        "hash",
+        "market_name",
+        "item_link",
+        "vendor_name",
+        "price",
+        "name",
+        "description",
+        "image_link",
+        "add_time",
+        "ship_from",
+        ""
+      ],
+      "adapter_version": "GWERN_GRAMS_ADAPTER_SPEC_v1",
+      "archive_member_mtime": 1429516918
+    },
+    "relations": [
+      {
+        "type": "record_in_snapshot",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "to_id": [
+          "snapshot",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          "2015-04-20"
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "field_refs": []
+      },
+      {
+        "type": "listing_observed_in_record",
+        "from_id": [
+          "listing_observation",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            2,
+            "grams/2015-04-20/Abraxas.csv",
+            1
+          ]
+        ],
+        "to_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "field_refs": []
+      },
+      {
+        "type": "record_declares_vendor",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "to_id": [
+          "observed_account",
+          "gwern-grams",
+          "Abraxas",
+          "3-Leg-Racer"
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              2,
+              "grams/2015-04-20/Abraxas.csv",
+              1
+            ],
+            "column_position": 2,
+            "header_name": "market_name"
+          },
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              2,
+              "grams/2015-04-20/Abraxas.csv",
+              1
+            ],
+            "column_position": 4,
+            "header_name": "vendor_name"
+          }
+        ]
+      },
+      {
+        "type": "record_has_image_reference",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "to_id": [
+          "image_reference",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            2,
+            "grams/2015-04-20/Abraxas.csv",
+            1
+          ],
+          8
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              2,
+              "grams/2015-04-20/Abraxas.csv",
+              1
+            ],
+            "column_position": 8,
+            "header_name": "image_link"
+          }
+        ]
+      },
+      {
+        "type": "record_has_shipping_claim",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "to_id": [
+          "shipping_claim",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            2,
+            "grams/2015-04-20/Abraxas.csv",
+            1
+          ],
+          10
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              2,
+              "grams/2015-04-20/Abraxas.csv",
+              1
+            ],
+            "column_position": 10,
+            "header_name": "ship_from"
+          }
+        ]
+      },
+      {
+        "type": "record_has_time_value",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "to_id": [
+          "source_time",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            2,
+            "grams/2015-04-20/Abraxas.csv",
+            1
+          ],
+          9
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              2,
+              "grams/2015-04-20/Abraxas.csv",
+              1
+            ],
+            "column_position": 9,
+            "header_name": "add_time"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "source_record": {
+      "id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        3,
+        "grams/2015-04-21/Abraxas.csv",
+        1
+      ],
+      "archive_id": [
+        "archive",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6"
+      ],
+      "member_id": [
+        "member",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        3,
+        "grams/2015-04-21/Abraxas.csv"
+      ],
+      "snapshot_id": [
+        "snapshot",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        "2015-04-21"
+      ],
+      "row_number": 1,
+      "raw_values": {
+        "hash": "7-18b2f6c44cccb450ea58ac460db0fd53",
+        "market_name": "Abraxas",
+        "item_link": "http://abraxasdegupusel.onion/listing/2OlUhQx9Rt",
+        "vendor_name": "3-Leg-Racer",
+        "price": "2851.78500000",
+        "name": "1 x 5mg DOM STP",
+        "description": "3 LEG RACER Please read my profile before ordering I am very proud to offer you the most rewarding compound from the DOx family DOM STP or 2 5 dimethoxy 4 methylamphetamine The high can be described as something between LSD and mescaline but closer to mescaline Experience varies greatly based on each indivdual and chosen dosage but in general there are much less side effects than with other DOx compounds Some users report to have the strongest trips of their lives with higher doses so keep that in mind before you drop a second or third tab Tabs are signed DOM 5mg on the backside to prevent selling them as LSD and putting someone s life at risk out of greed Dosage 0 5 1 hit 2 5 5mg light medium strong trip For some people 5mg will be a blast so better start small Duration should be similar to LSD experience except for the onset which takes about 1 2 hours 1 5 2 hits strong very strong trip for most of you Get ready for 6 8 hours of otherwordly peak and another 7 10 hours of slow comedown 2 5 3 hits heavy trip Only for the most experienced users Really do it only if you know what you are doing You won t be physically harmed but prepare for 8 10 hours of extremely strong peak during which you better have someone to take care of you unless you are a real psychedelic soldier Do not try this dose if you haven t tried DOM before You might be resistant to many psychedelics but you might be sensitive to this one you ll never know unless you try So please guys start small and stay safe we want you to get as beautiful experiences with our stuff as possible Product is vacuum sealed and professionally shipped All products come sealed in MBB along with excellent stealth Daily shipping cut of time is 2 30 pm Order before 2 30pm IT WILL BE SHIPPED Make sure your address is in the correct format Mr Super Hans 123 FAKE ST SYDNEY NSW 2000 If you have any questions please feel free to contact me anytime",
+        "image_link": "http://abraxasdegupusel.onion/uploads/",
+        "add_time": "1429352929",
+        "ship_from": "Australia"
+      },
+      "trailing_empty_cell": "",
+      "field_issues": [],
+      "adapter_version": "GWERN_GRAMS_ADAPTER_SPEC_v1"
+    },
+    "listing_observation": {
+      "id": [
+        "listing_observation",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ]
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        3,
+        "grams/2015-04-21/Abraxas.csv",
+        1
+      ],
+      "snapshot_id": [
+        "snapshot",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        "2015-04-21"
+      ],
+      "source_hash_raw": "7-18b2f6c44cccb450ea58ac460db0fd53",
+      "source_hash_reference": [
+        "source_hash_reference",
+        "gwern-grams",
+        "Abraxas",
+        "7-18b2f6c44cccb450ea58ac460db0fd53"
+      ],
+      "source_url_reference": [
+        "source_url_reference",
+        "gwern-grams",
+        "Abraxas",
+        "http://abraxasdegupusel.onion/listing/2OlUhQx9Rt"
+      ],
+      "item_reference": {
+        "raw": "http://abraxasdegupusel.onion/listing/2OlUhQx9Rt",
+        "kind": "http_reference_candidate",
+        "field_ref": {
+          "record_id": [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            3,
+            "grams/2015-04-21/Abraxas.csv",
+            1
+          ],
+          "column_position": 3,
+          "header_name": "item_link"
+        }
+      },
+      "observed_account_id": [
+        "observed_account",
+        "gwern-grams",
+        "Abraxas",
+        "3-Leg-Racer"
+      ],
+      "title": "1 x 5mg DOM STP",
+      "description": "3 LEG RACER Please read my profile before ordering I am very proud to offer you the most rewarding compound from the DOx family DOM STP or 2 5 dimethoxy 4 methylamphetamine The high can be described as something between LSD and mescaline but closer to mescaline Experience varies greatly based on each indivdual and chosen dosage but in general there are much less side effects than with other DOx compounds Some users report to have the strongest trips of their lives with higher doses so keep that in mind before you drop a second or third tab Tabs are signed DOM 5mg on the backside to prevent selling them as LSD and putting someone s life at risk out of greed Dosage 0 5 1 hit 2 5 5mg light medium strong trip For some people 5mg will be a blast so better start small Duration should be similar to LSD experience except for the onset which takes about 1 2 hours 1 5 2 hits strong very strong trip for most of you Get ready for 6 8 hours of otherwordly peak and another 7 10 hours of slow comedown 2 5 3 hits heavy trip Only for the most experienced users Really do it only if you know what you are doing You won t be physically harmed but prepare for 8 10 hours of extremely strong peak during which you better have someone to take care of you unless you are a real psychedelic soldier Do not try this dose if you haven t tried DOM before You might be resistant to many psychedelics but you might be sensitive to this one you ll never know unless you try So please guys start small and stay safe we want you to get as beautiful experiences with our stuff as possible Product is vacuum sealed and professionally shipped All products come sealed in MBB along with excellent stealth Daily shipping cut of time is 2 30 pm Order before 2 30pm IT WILL BE SHIPPED Make sure your address is in the correct format Mr Super Hans 123 FAKE ST SYDNEY NSW 2000 If you have any questions please feel free to contact me anytime",
+      "price": {
+        "raw": "2851.78500000",
+        "parse_status": "parsed_decimal",
+        "amount_decimal": "2851.785",
+        "currency": null,
+        "field_ref": {
+          "record_id": [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            3,
+            "grams/2015-04-21/Abraxas.csv",
+            1
+          ],
+          "column_position": 5,
+          "header_name": "price"
+        }
+      },
+      "canonical_listing_id": null,
+      "canonical_artefact_id": null
+    },
+    "observed_account": {
+      "id": [
+        "observed_account",
+        "gwern-grams",
+        "Abraxas",
+        "3-Leg-Racer"
+      ],
+      "source_namespace": "gwern-grams",
+      "market_name_raw": "Abraxas",
+      "vendor_name_raw": "3-Leg-Racer",
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        3,
+        "grams/2015-04-21/Abraxas.csv",
+        1
+      ],
+      "market_field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "column_position": 2,
+        "header_name": "market_name"
+      },
+      "vendor_field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "column_position": 4,
+        "header_name": "vendor_name"
+      }
+    },
+    "image_reference": {
+      "id": [
+        "image_reference",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        8
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        3,
+        "grams/2015-04-21/Abraxas.csv",
+        1
+      ],
+      "raw": "http://abraxasdegupusel.onion/uploads/",
+      "kind": "http_reference_candidate",
+      "field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "column_position": 8,
+        "header_name": "image_link"
+      },
+      "image_bytes_ref": null,
+      "verified_archive_image_member": null
+    },
+    "timestamp": {
+      "id": [
+        "source_time",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        9
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        3,
+        "grams/2015-04-21/Abraxas.csv",
+        1
+      ],
+      "field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "column_position": 9,
+        "header_name": "add_time"
+      },
+      "raw": "1429352929",
+      "parse_status": "parsed_integer",
+      "parsed_integer": 1429352929,
+      "classification": "UNKNOWN",
+      "semantic_status": "UNRESOLVED",
+      "epoch": null,
+      "unit": null,
+      "timezone": null,
+      "instant": null
+    },
+    "shipping_claim": {
+      "id": [
+        "shipping_claim",
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        10
+      ],
+      "source_record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        3,
+        "grams/2015-04-21/Abraxas.csv",
+        1
+      ],
+      "raw": "Australia",
+      "interpretation": "unverified_source_claim",
+      "field_ref": {
+        "record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "column_position": 10,
+        "header_name": "ship_from"
+      },
+      "country_code": null,
+      "actual_location": null
+    },
+    "provenance": {
+      "archive_id": [
+        "archive",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6"
+      ],
+      "archive_sha256": "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+      "member_id": [
+        "member",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        3,
+        "grams/2015-04-21/Abraxas.csv"
+      ],
+      "member_name_raw": "grams/2015-04-21/Abraxas.csv",
+      "member_ordinal": 3,
+      "member_sha256": "9da13515007b3519668804b273158d65eb189677e743f49ea280b78cf19ccbd8",
+      "snapshot_id": [
+        "snapshot",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        "2015-04-21"
+      ],
+      "row_number": 1,
+      "schema_header": [
+        "hash",
+        "market_name",
+        "item_link",
+        "vendor_name",
+        "price",
+        "name",
+        "description",
+        "image_link",
+        "add_time",
+        "ship_from",
+        ""
+      ],
+      "adapter_version": "GWERN_GRAMS_ADAPTER_SPEC_v1",
+      "archive_member_mtime": 1429603202
+    },
+    "relations": [
+      {
+        "type": "record_in_snapshot",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "to_id": [
+          "snapshot",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          "2015-04-21"
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "field_refs": []
+      },
+      {
+        "type": "listing_observed_in_record",
+        "from_id": [
+          "listing_observation",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            3,
+            "grams/2015-04-21/Abraxas.csv",
+            1
+          ]
+        ],
+        "to_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "field_refs": []
+      },
+      {
+        "type": "record_declares_vendor",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "to_id": [
+          "observed_account",
+          "gwern-grams",
+          "Abraxas",
+          "3-Leg-Racer"
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              3,
+              "grams/2015-04-21/Abraxas.csv",
+              1
+            ],
+            "column_position": 2,
+            "header_name": "market_name"
+          },
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              3,
+              "grams/2015-04-21/Abraxas.csv",
+              1
+            ],
+            "column_position": 4,
+            "header_name": "vendor_name"
+          }
+        ]
+      },
+      {
+        "type": "record_has_image_reference",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "to_id": [
+          "image_reference",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            3,
+            "grams/2015-04-21/Abraxas.csv",
+            1
+          ],
+          8
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              3,
+              "grams/2015-04-21/Abraxas.csv",
+              1
+            ],
+            "column_position": 8,
+            "header_name": "image_link"
+          }
+        ]
+      },
+      {
+        "type": "record_has_shipping_claim",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "to_id": [
+          "shipping_claim",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            3,
+            "grams/2015-04-21/Abraxas.csv",
+            1
+          ],
+          10
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              3,
+              "grams/2015-04-21/Abraxas.csv",
+              1
+            ],
+            "column_position": 10,
+            "header_name": "ship_from"
+          }
+        ]
+      },
+      {
+        "type": "record_has_time_value",
+        "from_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "to_id": [
+          "source_time",
+          [
+            "record",
+            "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+            3,
+            "grams/2015-04-21/Abraxas.csv",
+            1
+          ],
+          9
+        ],
+        "source_record_id": [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          3,
+          "grams/2015-04-21/Abraxas.csv",
+          1
+        ],
+        "field_refs": [
+          {
+            "record_id": [
+              "record",
+              "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+              3,
+              "grams/2015-04-21/Abraxas.csv",
+              1
+            ],
+            "column_position": 9,
+            "header_name": "add_time"
+          }
+        ]
+      }
+    ]
+  }
+]

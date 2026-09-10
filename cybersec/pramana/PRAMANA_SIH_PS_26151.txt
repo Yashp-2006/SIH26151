@@ -1,0 +1,117 @@
+# PRAMANA — SIH 2026 Problem Statement 26151
+
+## Problem Statement
+**Title:** Dark web threat actor de-anonymization  
+**Problem Statement ID:** SIH26151  
+**Organization:** National Technical Research Organisation (NTRO)  
+**Category:** Software  
+**Theme:** Blockchain & Cybersecurity  
+
+## Background
+
+The dark web has become a preferred operating space for threat actors because
+Tor hidden services make attribution of actors operating on the dark web a
+major challenge for investigators.
+
+Threat actors use these environments for unlawful activities including drug
+and arms sales, stolen data and hacking services, money laundering, and terror
+financing.
+
+The objective of this problem statement is to build a system for
+de-anonymizing dark-web threat actors and linking them to suspect
+real-world entities.
+
+## Required Capabilities
+
+### 1. Hidden-service / infrastructure intelligence
+
+Continuously gather threat-actor footprints from marketplaces, forums,
+deep-web sources and related sources.
+
+Identify useful hidden-service misconfigurations and infrastructure clues,
+including examples such as:
+
+- exposed server-status pages
+- SSL certificates tied to clearnet domains
+- default service banners
+- descriptor inconsistencies
+
+Match useful infrastructure observations with clearnet infrastructure to
+identify likely origin infrastructure.
+
+### 2. Cross-platform threat-actor relationship mapping
+
+Map actors across multiple marketplaces and related platforms into a
+relationship graph containing signals such as:
+
+- handles / aliases
+- PGP keys
+- wallets
+- trust relationships
+
+The system should support investigation across fragmented identities rather
+than treating each account independently.
+
+### 3. AI-based persona and behavioural analysis
+
+Use AI-based analysis, including:
+
+- stylometric persona identification
+- behavioural profiling
+
+to support linking of rebranded or migrated personas to previously observed
+threat actors.
+
+## Investigation Interface
+
+Provide an analytical frontend that allows investigators to query the
+intelligence database across a selected timeline.
+
+The system is expected to support autonomous operation using sources of
+appropriate quality and reliability.
+
+## Expected Solution
+
+Build an end-to-end system covering:
+
+- collection
+- storage
+- contextualization
+- querying
+- GUI / dashboards
+- actor profiles
+- identifiers such as handles, PGP keys and wallets
+- hidden-service infrastructure indicators
+- persona linkages
+- attribution confidence
+- category
+- last scan date
+- source
+
+The system should support exporting results in:
+
+- CSV
+- JSON
+- report formats
+
+## PRAMANA Interpretation Boundary
+
+PRAMANA must treat the SIH statement as the problem requirement, not as
+permission to make unsupported attribution claims.
+
+The system should produce evidence-backed investigative leads and
+contestable attribution hypotheses.
+
+It must not automatically equate:
+- an indicator with a person
+- similarity with identity
+- shared infrastructure with shared control
+- a public dataset label with ground truth
+- an ML score with proof of attribution
+
+PRAMANA's internal architecture therefore uses:
+evidence → counter-evidence → independence analysis → fusion → assessment →
+human review.
+
+All implementation and testing must remain within lawful public, historical,
+synthetic, or controlled research environments.
