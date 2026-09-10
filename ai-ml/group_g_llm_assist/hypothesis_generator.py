@@ -5,12 +5,15 @@ NEVER emits authoritative merge decisions or alters assessment/evidence state di
 """
 
 from dataclasses import dataclass
+from pathlib import Path
+import sys
 from typing import List, Dict, Any, Optional
 
-try:
-    from shared.contracts import EvidenceCandidate
-except ModuleNotFoundError:
-    from ..shared.contracts import EvidenceCandidate
+_AIML_DIR = Path(__file__).resolve().parent.parent
+if str(_AIML_DIR) not in sys.path:
+    sys.path.insert(0, str(_AIML_DIR))
+
+from shared.contracts import EvidenceCandidate
 
 from .citation_validator import validate_citations
 

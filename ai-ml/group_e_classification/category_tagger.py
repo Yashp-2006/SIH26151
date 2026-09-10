@@ -5,12 +5,15 @@ Emits EvidenceCandidate extensions; never outputs final confidence or merge deci
 """
 
 import re
+import sys
+from pathlib import Path
 from typing import Dict, Any, Optional
 
-try:
-    from shared.contracts import EvidenceCandidate
-except ModuleNotFoundError:
-    from ..shared.contracts import EvidenceCandidate
+_AIML_DIR = Path(__file__).resolve().parent.parent
+if str(_AIML_DIR) not in sys.path:
+    sys.path.insert(0, str(_AIML_DIR))
+
+from shared.contracts import EvidenceCandidate
 
 DETECTOR_VERSION = "category_tagger_v0.1"
 

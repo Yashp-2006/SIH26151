@@ -3,13 +3,16 @@ Group F: Shortest Path Topology Features.
 Measures structural proximity between subjects across the entity graph.
 """
 
+import sys
+from pathlib import Path
 from typing import Optional, Dict, Any
 import networkx as nx
 
-try:
-    from shared.contracts import EvidenceCandidate
-except ModuleNotFoundError:
-    from ..shared.contracts import EvidenceCandidate
+_AIML_DIR = Path(__file__).resolve().parent.parent
+if str(_AIML_DIR) not in sys.path:
+    sys.path.insert(0, str(_AIML_DIR))
+
+from shared.contracts import EvidenceCandidate
 
 DETECTOR_VERSION = "path_features_v0.1"
 

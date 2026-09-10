@@ -5,13 +5,16 @@ Emits F8 graph evidence candidates based on shared document appearances.
 
 from collections import defaultdict
 from itertools import combinations
+from pathlib import Path
+import sys
 from typing import List, Dict, Tuple, Optional
 import networkx as nx
 
-try:
-    from shared.contracts import EvidenceCandidate
-except ModuleNotFoundError:
-    from ..shared.contracts import EvidenceCandidate
+_AIML_DIR = Path(__file__).resolve().parent.parent
+if str(_AIML_DIR) not in sys.path:
+    sys.path.insert(0, str(_AIML_DIR))
+
+from shared.contracts import EvidenceCandidate
 
 DETECTOR_VERSION = "co_occurrence_v0.1"
 

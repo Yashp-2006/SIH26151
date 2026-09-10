@@ -5,14 +5,18 @@ Emits EvidenceCandidate extensions; never outputs final confidence or merge deci
 """
 
 import math
+import os
 import re
+import sys
 from collections import Counter
+from pathlib import Path
 from typing import Optional
 
-try:
-    from shared.contracts import EvidenceCandidate
-except ModuleNotFoundError:
-    from ..shared.contracts import EvidenceCandidate
+_AIML_DIR = Path(__file__).resolve().parent.parent
+if str(_AIML_DIR) not in sys.path:
+    sys.path.insert(0, str(_AIML_DIR))
+
+from shared.contracts import EvidenceCandidate
 
 DETECTOR_VERSION = "text_embeddings_v0.1"
 
@@ -41,9 +45,10 @@ def compute_text_similarity(text_a: str, text_b: str) -> float:
     if not text_a or not text_b:
         return 0.0
     try:
-        from sentence_transformers import SentenceTransformer
+        import importlib
+        st_mod = importlib.import_module("sentence_transformers")
         # ponytail: cached small model; falls back to ngram if absent
-        model = SentenceTransformer("all-MiniLM-L6-v2")
+        model = st_mod.SentenceTransformer("all-MiniLM-L6-v2")
         emb_a = model.encode(text_a)
         emb_b = model.encode(text_b)
         sim = float(model.similarity(emb_a, emb_b)[0][0])

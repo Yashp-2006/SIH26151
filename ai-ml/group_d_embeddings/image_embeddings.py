@@ -3,13 +3,16 @@ Group D: Image Feature & Perceptual Embedding Similarity.
 Computes image visual similarity [0.0, 1.0] and constructs F5 content artefact candidates.
 """
 
-from typing import Optional
 import os
+import sys
+from pathlib import Path
+from typing import Optional
 
-try:
-    from shared.contracts import EvidenceCandidate
-except ModuleNotFoundError:
-    from ..shared.contracts import EvidenceCandidate
+_AIML_DIR = Path(__file__).resolve().parent.parent
+if str(_AIML_DIR) not in sys.path:
+    sys.path.insert(0, str(_AIML_DIR))
+
+from shared.contracts import EvidenceCandidate
 
 DETECTOR_VERSION = "image_embeddings_v0.1"
 
@@ -23,10 +26,11 @@ def compute_image_similarity(path_a: str, path_b: str) -> float:
         return 0.0
 
     try:
-        from PIL import Image
-        import imagehash
-        hash_a = imagehash.phash(Image.open(path_a))
-        hash_b = imagehash.phash(Image.open(path_b))
+        import importlib
+        pil_image = importlib.import_module("PIL.Image")
+        imagehash = importlib.import_module("imagehash")
+        hash_a = imagehash.phash(pil_image.open(path_a))
+        hash_b = imagehash.phash(pil_image.open(path_b))
         diff = hash_a - hash_b
         # 64-bit phash: distance 0 -> 1.0, distance >= 32 -> 0.0
         sim = max(0.0, 1.0 - (diff / 32.0))
