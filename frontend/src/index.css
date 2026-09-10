@@ -1,0 +1,227 @@
+@import 'tailwindcss';
+
+/* PRAMANA — clean light dashboard.
+   Neutral zinc base, one muted slate-blue accent (no purple, no glow, flat fills
+   only), colour reserved for evidence data. IBM Plex Sans + Mono — a real
+   typeface with character, matched sans/mono for a technical UI. */
+@theme {
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+  /* editorial display voice — marketing surfaces only, never the dashboard */
+  --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+
+  /* surfaces + ink (zinc) */
+  --color-paper: #fafaf9;
+  --color-surface: #ffffff;
+  --color-ink: #1c1c1a;
+  --color-ink-soft: #565651;
+  --color-ink-faint: #9a9a94;
+  --color-hairline: #ececea;
+  --color-hairline-strong: #d7d7d3;
+
+  /* one accent — deep muted petrol blue, flat only */
+  --color-accent: #26496b;
+  --color-accent-wash: #eef2f5;
+
+  /* evidence signal set — desaturated, categorical */
+  --color-support: #2f6b45;
+  --color-support-wash: #eef4ef;
+  --color-counter: #a23a2f;
+  --color-counter-wash: #f5ebe8;
+  --color-suppressed: #a3a39c;
+  --color-veto: #262622;
+  --color-flag: #97622a;
+  --color-flag-wash: #f4ede1;
+}
+
+html {
+  color-scheme: light;
+  --r: 6px;
+  --r-lg: 10px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* load-in — a single fade-up, plus an index-driven stagger for lists/grids */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.stagger > * {
+  animation: rise 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .stagger > * {
+    animation: none;
+  }
+}
+
+/* focus — one consistent ring, accent, no glow */
+:where(button, a, input, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---- landing: editorial display + the one authored motion ---- */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+
+/* hand-drawn underline that draws itself in */
+@keyframes underline-draw {
+  from {
+    stroke-dashoffset: 240;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.brush path {
+  stroke-dasharray: 240;
+  stroke-dashoffset: 240;
+  animation: underline-draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.45s forwards;
+}
+
+/* headline words rise in sequence */
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.32em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.words span.inline-block {
+  opacity: 0;
+  animation: word-in 0.62s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--w, 0) * 70ms);
+}
+
+.rise-late {
+  opacity: 0;
+  animation: word-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+.rise-later {
+  opacity: 0;
+  animation: word-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.64s both;
+}
+
+/* dark panel: a hash-chained evidence ledger being assembled */
+@keyframes packet {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  40% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+  46%,
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+@keyframes artefact {
+  0%,
+  42% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  48% {
+    opacity: 1;
+  }
+  84% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+  90%,
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+@keyframes pin {
+  0%,
+  30%,
+  100% {
+    opacity: 0.5;
+  }
+  10% {
+    opacity: 1;
+  }
+}
+@keyframes box-seal {
+  0%,
+  100% {
+    stroke: #3a382f;
+  }
+  50% {
+    stroke: #6b6860;
+  }
+}
+@keyframes ledger {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+  30%,
+  70% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brush path,
+  .words span.inline-block,
+  .rise-late,
+  .rise-later,
+  .trace-scene * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}

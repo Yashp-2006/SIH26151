@@ -243,8 +243,8 @@ SIH26151/
 
 | Module | Directory | Planned Components | Architecture Role |
 |---|---|---|---|
-| **Backend Service** | `backend/` | `README.md`, `requirements.txt`, FastAPI Server, PostgreSQL 16 Ledger, Auth Layer | Persistent evidence store, Z1–Z4 trust zone enforcement, analyst note persistence, and retraction logging (pending DC-06 contract). |
-| **Investigation Frontend** | `frontend/` | `README.md`, `.gitkeep`, React 18, TypeScript, Vite Dashboard | Analyst workbench: visual persona graph exploration, co-spend wallet visualizer, temporal timeline alignment, and PDF export. |
+| **Backend Service** | `backend/` | `app/main.py` (FastAPI gateway), `requirements.txt` | Imports `ai-ml/pramana` directly, precomputes all pairs, serves `/health` `/accounts` `/pairs` `/assess` `/balance_sheet` `/metrics` `/demo` with CORS for the dashboard. Persistence (PostgreSQL ledger, auth, Z1–Z4) stays deferred. |
+| **Investigation Frontend** | `frontend/` | React 18 + TypeScript + Vite + Tailwind, `scripts/gen_snapshot.py` | Analyst dashboard: Overview, Evidence Balance Sheet, Workspace, Assessment & Review, Evaluation. Reads the backend when up, falls back to `public/snapshot.json` (frozen engine output). |
 
 #### Table 7.5: Reference Submission & Governance Scaffolding
 
@@ -420,6 +420,44 @@ uvicorn pramana.api:app --reload --port 8000
 cd ai-ml/cloudflare-workers
 npx wrangler dev
 ```
+
+### Run the analyst dashboard (frontend + backend)
+
+The `backend/` gateway imports the fusion engine directly and serves it to the
+`frontend/` React dashboard. The dashboard also ships a frozen snapshot of the
+engine's output (`frontend/public/snapshot.json`) so it runs with no backend.
+
+```bash
+# backend — from repo root
+python -m venv .venv
+.venv/bin/pip install -r backend/requirements.txt
+.venv/bin/python -m uvicorn backend.app.main:app --port 8000     # http://localhost:8000/docs
+
+# frontend — separate terminal
+cd frontend
+npm install
+npm run dev                                                      # http://localhost:5173
+
+# regenerate the offline snapshot from the engine after any pramana change
+python frontend/scripts/gen_snapshot.py
+```
+
+Single-origin demo: `cd frontend && npm run build`, then the backend serves the
+built dashboard at `http://localhost:8000/`.
+
+### What is wired to what
+
+| Path | Status |
+|---|---|
+| `frontend` → `backend` `/health` `/assess` `/balance_sheet` `/metrics` `/demo` | connected. Dashboard uses the gateway when it is up (sidebar shows *fusion engine · gateway*), else the bundled snapshot. |
+| `backend` → `ai-ml/pramana` fusion engine | connected. Imported in-process, all 900 pairs precomputed at startup. |
+| `backend` `/nlp/*` → `ai-ml/group_a_deterministic` + `ai-ml/group_b_nlp` | connected. Deterministic extraction, SimHash canonicalisation and stylometry run in-process (`backend/app/nlp.py`). |
+| `backend` `/nlp/*` → Hugging Face Space (`ai-ml/hf-space`) | proxy ready. Set `HF_SPACE_URL` once the Space is deployed and `/nlp/*` calls route there instead of running locally. |
+| `ai-ml` tests → HF dataset `yashai2006/pramana-synthetic-list-a` | connected. Gated dataset (images, listings, `synthetic_ground_truth.json`); set `HF_TOKEN` + `HF_DATASET_REPO` in `ai-ml/.env`. Consumed by `group_a_deterministic/test_group_a.py` and `shared/data_loader.py`. |
+
+The `ai-ml/pramana` fusion demo is self-contained and needs no network. The HF
+dataset and Space are for the List-A/B extraction modules, which sit upstream of
+the fusion engine (the promotion boundary DC-06 is still deferred).
 
 ---
 
