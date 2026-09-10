@@ -1,0 +1,133 @@
+==============================================================================
+PRAMANA | INDEPENDENCE-ACCOUNTING ABLATION      RANGE-SIM v0.1
+asserted priors: lambda=0.2  tau=12  k_min=2  ceiling=4.0  (design priors, NOT fitted)
+==============================================================================
+                                       NAIVE     no grouping       PRAMANA
+------------------------------------------------------------------------------
+FALSE-MERGE RATE                       29.8%            3.5%          1.5%
+false merges (count)                     239              28            12
+precision                              28.2%           75.2%         87.6%
+recall                                 94.9%           85.9%         85.9%
+F1                                     0.435           0.802         0.867
+------------------------------------------------------------------------------
+assessments REFUSED (k<2)                n/a                           803
+==============================================================================
+RESIDUAL FAILURES (12 remaining false merges):
+     10  PLANTED_HANDOVER
+      2  ordinary_negative
+
+  The handover cases are the residual risk named in the threat model:
+  a resold account genuinely inherits the seller's identifiers, so
+  correlation has no basis on which to separate the two operators.
+==============================================================================
+
+
+>>> CASE 1  planted decoy: two UNRELATED vendors on a rare shared host
+
+========================================================================
+EVIDENCE BALANCE SHEET   acc_100  vs  acc_129
+========================================================================
+  F1  raw  0.00   damped  0.00   ->  0.00
+        - hub: 'DEFAULT_BLOCK_1' seen 69x in corpus (tau=12) -> forced to 0
+  F3  raw  1.84   damped  1.84   -> +1.84
+        - asn='AS_SHARED_04'
+        - origin='batch_c99e'
+        - match=exact
+        - similarity=1.0
+        - raw_hits=1
+        - rarity: seen 2/137 -> log10(137/2)=1.84
+  F5  raw  1.84   damped  1.84   -> +1.84
+        - template_id='tpl_shared_04'
+        - origin='batch_c99e'
+        - match=simhash
+        - similarity=1.0
+        - raw_hits=1
+        - rarity: seen 2/137 -> log10(137/2)=1.84
+
+  COUNTER-EVIDENCE
+        - [soft] shared_ecosystem_not_shared_control (-0.00)
+          all surviving evidence across 2 families traces to a single capture origin (batch_c99e) - the apparent link is explained by common site configuration
+
+  k (independent origins)  : 1   over 1 capture origin(s)
+  VERDICT                  : NO ASSESSMENT ISSUED
+                             k=1 independent origins < k_min=2 (2 families over 1 capture origin(s))
+  defence hypothesis       : the observed accounts are controlled by different operators and share a marketplace ecosystem
+========================================================================
+
+
+>>> CASE 2  true pair: same operator, two marketplaces
+
+========================================================================
+EVIDENCE BALANCE SHEET   acc_024  vs  acc_025
+========================================================================
+  F4  raw  1.84   damped  1.84   -> +1.84
+        - contact_id='05f330'
+        - origin='contact::acc_024__acc_025'
+        - match=exact
+        - similarity=1.0
+        - raw_hits=1
+        - rarity: seen 2/137 -> log10(137/2)=1.84
+  F5  raw  1.84   damped  1.84   -> +1.84
+        - image_id='img_11_c02'
+        - origin='batch_7edf'
+        - match=phash
+        - similarity=1.0
+        - raw_hits=4
+        - rarity: seen 2/137 -> log10(137/2)=1.84
+        - 4 raw retrieval(s) / 1 artefact(s) on capture 'batch_7edf' collapsed to 1 observation
+
+  k (independent origins)  : 2   over 2 capture origin(s)
+  log10 LR                 : 3.672   [STRONG]
+  defence hypothesis       : the observed accounts are controlled by different operators and share a marketplace ecosystem
+========================================================================
+
+
+>>> CASE 3  account handover: the system is WRONG, and says why it can't tell
+
+========================================================================
+EVIDENCE BALANCE SHEET   acc_048  vs  acc_106
+========================================================================
+  F1  raw  0.00   damped  0.00   ->  0.00
+        - hub: 'DEFAULT_BLOCK_1' seen 69x in corpus (tau=12) -> forced to 0
+  F4  raw  1.66   damped  1.66   -> +1.66
+        - contact_id='05f95f'
+        - origin='contact::acc_048__acc_106'
+        - match=exact
+        - similarity=1.0
+        - raw_hits=1
+        - rarity: seen 3/137 -> log10(137/3)=1.66
+  F5  raw  1.66   damped  1.66   -> +1.66
+        - image_id='img_46_b97'
+        - origin='batch_2772'
+        - match=phash
+        - similarity=1.0
+        - raw_hits=3
+        - rarity: seen 3/137 -> log10(137/3)=1.66
+        - hub: 'tpl_2' seen 25x in corpus (tau=12) -> forced to 0
+        - 3 raw retrieval(s) / 1 artefact(s) on capture 'batch_2772' collapsed to 1 observation
+
+  k (independent origins)  : 2   over 2 capture origin(s)
+  log10 LR                 : 3.32   [STRONG]
+  defence hypothesis       : the observed accounts are controlled by different operators and share a marketplace ecosystem
+========================================================================
+    ground truth: op_22 vs op_46  -> DIFFERENT operators. This is a false merge we do not claim to fix.
+
+========================================================================
+SENSITIVITY: within-family damping lambda   (asserted default 0.2)
+========================================================================
+  lambda    false-merge rate   precision    recall      F1
+------------------------------------------------------------------------
+    0.00               1.5%       87.6%     85.9%   0.867
+    0.10               1.5%       87.6%     85.9%   0.867
+    0.20               1.5%       87.6%     85.9%   0.867  <- asserted
+    0.30               1.5%       87.6%     85.9%   0.867
+    0.40               1.5%       87.6%     85.9%   0.867
+    0.60               1.5%       87.6%     85.9%   0.867
+------------------------------------------------------------------------
+HONEST FINDING: lambda has NO measurable effect at this corpus scale.
+Multi-group-within-one-family cases are rare in RANGE-SIM v0.1, so the
+damping term almost never binds. What actually moves the false-merge
+rate is the grouping step itself - collapsing raw retrievals and
+correlated captures onto one independence key (see ablation: 3.5% ->
+1.5%). We report lambda as an unvalidated design prior, not a result.
+

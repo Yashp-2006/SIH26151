@@ -1,0 +1,35 @@
+========================================================================
+SENSITIVITY: within-family damping lambda   (asserted default 0.2)
+========================================================================
+  lambda    false-merge rate   precision    recall      F1
+------------------------------------------------------------------------
+    0.00               1.5%       87.6%     85.9%   0.867
+    0.10               1.5%       87.6%     85.9%   0.867
+    0.20               1.5%       87.6%     85.9%   0.867  <- asserted
+    0.30               1.5%       87.6%     85.9%   0.867
+    0.40               1.5%       87.6%     85.9%   0.867
+    0.60               1.5%       87.6%     85.9%   0.867
+------------------------------------------------------------------------
+HONEST FINDING: lambda has NO measurable effect at this corpus scale.
+Multi-group-within-one-family cases are rare in RANGE-SIM v0.1, so the
+damping term almost never binds. What actually moves the false-merge
+rate is the grouping step itself - collapsing raw retrievals and
+correlated captures onto one independence key (see ablation: 3.5% ->
+1.5%). We report lambda as an unvalidated design prior, not a result.
+
+========================================================================
+SENSITIVITY: hub threshold tau              (asserted default 12)
+========================================================================
+     tau    false-merge rate   precision    recall      F1
+------------------------------------------------------------------------
+       6               1.5%       87.5%     84.8%   0.862
+       9               1.5%       87.5%     84.8%   0.862
+      12               1.5%       87.6%     85.9%   0.867  <- asserted
+      18               1.5%       87.8%     86.9%   0.873
+      25               1.5%       87.8%     86.9%   0.873
+     off               3.5%       75.7%     87.9%   0.813
+------------------------------------------------------------------------
+KNOWN WEAKNESS: tau is an absolute count, so the same indicator
+crosses the hub threshold as the corpus grows without becoming less
+informative. Alternative thresholds require separate policy and evaluation review.
+

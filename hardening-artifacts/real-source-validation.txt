@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "C:\Users\revan\Downloads\SIH26151-main\SIH26151-main\cybersec\pramana\run_cyber_validation.py", line 75, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\revan\Downloads\SIH26151-main\SIH26151-main\cybersec\pramana\run_cyber_validation.py", line 66, in main
+    report = validate(args.archive)
+  File "C:\Users\revan\Downloads\SIH26151-main\SIH26151-main\cybersec\pramana\run_cyber_validation.py", line 23, in validate
+    result = run_adapter(str(archive_path), max_records=4397)
+  File "C:\Users\revan\Downloads\SIH26151-main\SIH26151-main\cybersec\pramana\adapters\gwern_grams\runner.py", line 35, in run_adapter
+    archive_valid, computed_digest = validate_archive_digest(archive_path)
+                                     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\revan\Downloads\SIH26151-main\SIH26151-main\cybersec\pramana\adapters\gwern_grams\archive_reader.py", line 26, in validate_archive_digest
+    with open(archive_path, "rb") as f:
+         ~~~~^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'grams.tar.xz'

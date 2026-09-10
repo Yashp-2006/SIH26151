@@ -1,0 +1,21 @@
+==============================================================
+RANGE-SIM built
+==============================================================
+  operators                 60
+  accounts                  137
+  listings                  555
+  candidate pairs           900   (99 positive / 801 negative)
+
+  TRAP CHECK
+  T1 hub PGP 'DEFAULT_BLOCK_1'   on 69/137 accounts  (50%)  -> must score ZERO
+  T2 mirrored images        54 images appear >1x (max 9x)  -> must collapse to 1 group
+  T3 planted decoys         20 cross-operator pairs share template+ASN+hub PGP
+  T4 rare contact IDs       31 identifiers appear exactly 2x  -> the real signal
+  T6 account handovers      10 cross-operator pairs share a rare contact ID + images
+  T5 compartmented ops      6 operators share nothing  -> expect to MISS these
+
+  FILES
+  C:\Users\revan\Downloads\SIH26151-main\SIH26151-main\hardening-artifacts\range-sim\accounts.json    <- system input
+  C:\Users\revan\Downloads\SIH26151-main\SIH26151-main\hardening-artifacts\range-sim\answer_key.csv   <- QUARANTINED, eval only
+  C:\Users\revan\Downloads\SIH26151-main\SIH26151-main\hardening-artifacts\range-sim\pairs.csv        <- labelled synthetic candidate pairs
+==============================================================

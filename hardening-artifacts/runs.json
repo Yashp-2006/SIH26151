@@ -1,0 +1,124 @@
+[
+  {
+    "name": "full-suite",
+    "cwd": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main",
+    "command": [
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "-q",
+      "-ra"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "ai-ml-suite",
+    "cwd": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main",
+    "command": [
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "-q",
+      "ai-ml"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "cyber-suite",
+    "cwd": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main",
+    "command": [
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "-q",
+      "cybersec/pramana"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "regressions",
+    "cwd": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main",
+    "command": [
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "-q",
+      "ai-ml/tests"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "fusion-demo",
+    "cwd": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\ai-ml",
+    "command": [
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pramana.demo"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "range-sim",
+    "cwd": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\ai-ml",
+    "command": [
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pramana.range_sim",
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\hardening-artifacts\\range-sim"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "evaluation",
+    "cwd": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\ai-ml",
+    "command": [
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pramana.evaluate"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "sensitivity",
+    "cwd": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\ai-ml",
+    "command": [
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pramana.sensitivity"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "cyber-demo",
+    "cwd": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\cybersec\\pramana",
+    "command": [
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\.venv\\Scripts\\python.exe",
+      "run_cyber_demo.py",
+      "--output-dir",
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\hardening-artifacts\\cyber-demo"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "real-source-validation",
+    "cwd": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\cybersec\\pramana",
+    "command": [
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\.venv\\Scripts\\python.exe",
+      "run_cyber_validation.py",
+      "--output",
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\hardening-artifacts\\real-source.json"
+    ],
+    "exit_code": 1
+  },
+  {
+    "name": "dependencies",
+    "cwd": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main",
+    "command": [
+      "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pip",
+      "check"
+    ],
+    "exit_code": 0
+  }
+]

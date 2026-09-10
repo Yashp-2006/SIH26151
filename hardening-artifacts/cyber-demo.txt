@@ -1,0 +1,9 @@
+{
+  "output": "C:\\Users\\revan\\Downloads\\SIH26151-main\\SIH26151-main\\hardening-artifacts\\cyber-demo\\review_packet.json",
+  "records": 18,
+  "indicators": 53,
+  "validated_evidence_candidates": 0,
+  "assessment": null,
+  "hub_accounts": 13,
+  "promotion": "blocked_DC-06"
+}

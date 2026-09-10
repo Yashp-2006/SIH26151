@@ -1,0 +1,191 @@
+{
+  "HARDENING_REPORT.md": {
+    "sha256": "bde06fa67575958e944d0d6f1653ab1dd4538d9e640962680f1a3ebcffce6ed8",
+    "status": "added"
+  },
+  "README.md": {
+    "sha256": "abd92cbf346cbe031e4e1ef9883615f14ead38a76c4aca271ae9bcc3ccd32eea",
+    "status": "modified"
+  },
+  "requirements-research-lock.txt": {
+    "sha256": "a9abfa74df4f27e568a70d1fa205d8ccb9e1fe9abe7cb972764dd65038d1325e",
+    "status": "added"
+  },
+  "ai-ml/README.md": {
+    "sha256": "faaec9f3bf925d4cbb1c58d17d22edb75d9104155ce7e77b01dc42afc756c945",
+    "status": "modified"
+  },
+  "ai-ml/requirements.txt": {
+    "sha256": "5b3c844de19f896e7b2d958b0738951a895af6f60b763eab32557eeb91b41299",
+    "status": "modified"
+  },
+  "hardening-artifacts/ai-ml-suite.txt": {
+    "sha256": "185abc377aeb979d91933f58caca116d49f62bc31fd588d0b1687a1143097809",
+    "status": "added"
+  },
+  "hardening-artifacts/before-sha256.json": {
+    "sha256": "0ec00dfacbf7a1e10dcc9bda06f7ee395e3007ff23f0ca2ff4714b0a07b0c391",
+    "status": "added"
+  },
+  "hardening-artifacts/cyber-demo.txt": {
+    "sha256": "90329860feeb5ed353c54f25cc308133b65a324675713edb1fcafd5700b7f2d2",
+    "status": "added"
+  },
+  "hardening-artifacts/cyber-suite.txt": {
+    "sha256": "6f52a6f562635c22de7ac9af1bd7fbb84a2f200b1d9b9ffb09b5244d12b02ed9",
+    "status": "added"
+  },
+  "hardening-artifacts/dependencies.txt": {
+    "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+    "status": "added"
+  },
+  "hardening-artifacts/evaluation.txt": {
+    "sha256": "b67c2df9ed57cbebd239b4293e6bb23668aa82e9fde854d89f862f8dff853d97",
+    "status": "added"
+  },
+  "hardening-artifacts/full-suite.txt": {
+    "sha256": "b7548d860ff061f6466a0819ec38cd17daf38bdd542e63e690d1317fe84ac5d7",
+    "status": "added"
+  },
+  "hardening-artifacts/fusion-demo.txt": {
+    "sha256": "110ff0362ccdd1403616cf68aeaf167469a7d49656c240b46b95be0cb558b4b5",
+    "status": "added"
+  },
+  "hardening-artifacts/metrics.json": {
+    "sha256": "16e9da387b62ddcddbe04a94acf4fedb47b19aef3396474669398540639515c1",
+    "status": "added"
+  },
+  "hardening-artifacts/protected-files.json": {
+    "sha256": "150dfa903f207f85de89ba304aa2d71ba1a3bfc1d17fb8436062742b79b5e972",
+    "status": "added"
+  },
+  "hardening-artifacts/range-sim.txt": {
+    "sha256": "9a24f0771ae8cdcbd07269e2108190f205db1a63a0939afb6910d98aea27b3fe",
+    "status": "added"
+  },
+  "hardening-artifacts/real-source-validation.txt": {
+    "sha256": "3a22cb19d231710925deb18b32c152bc25bae699f2d9435d1bb5bcf299d2cfe2",
+    "status": "added"
+  },
+  "hardening-artifacts/regressions.txt": {
+    "sha256": "9472df34c8673132e7f0ec86da24cb5db32d2d0267f0dbecdeba03095d73d153",
+    "status": "added"
+  },
+  "hardening-artifacts/runs.json": {
+    "sha256": "71ec8c64c41f7f972a1b3e96c2e1b916b0cc86d246c2432f7811a20c304e2b26",
+    "status": "added"
+  },
+  "hardening-artifacts/sensitivity.txt": {
+    "sha256": "3fa0088f090a806051273a79d86b19251571af6eb20cc6ffc58804467ceca22e",
+    "status": "added"
+  },
+  "hardening-artifacts/verify.py": {
+    "sha256": "72f9c84f8744680985ef58cdcb4d05e89a2d5b30b48f55bf0472ed0da48a2d45",
+    "status": "added"
+  },
+  "hardening-artifacts/cyber-demo/review.html": {
+    "sha256": "aac99774846ceeef9835c8bd1e575b3c06bb8161d3c8cb3633915098081671a6",
+    "status": "added"
+  },
+  "hardening-artifacts/cyber-demo/review_packet.json": {
+    "sha256": "4a2d168976caec775bf007258c6183e43a905bae72e7c2aaa4159b31234fc49a",
+    "status": "added"
+  },
+  "hardening-artifacts/cyber-demo/synthetic_source.tar": {
+    "sha256": "17452bbdc963567472094f8423446495a364c25664b36c619ae6462018e56719",
+    "status": "added"
+  },
+  "hardening-artifacts/range-sim/accounts.json": {
+    "sha256": "170f10edd30854e0ae8c697a2bb37a66be6d278c699b1cd080382793cd9b40e8",
+    "status": "added"
+  },
+  "hardening-artifacts/range-sim/answer_key.csv": {
+    "sha256": "20a418ae15d7bed99f96581fca7d4fc6ceef445269c22bb680ee545ce8979594",
+    "status": "added"
+  },
+  "hardening-artifacts/range-sim/manifest.json": {
+    "sha256": "2094620aef9fc77b64db574211752b68a089658dc53b73b86dbae4243976abd1",
+    "status": "added"
+  },
+  "hardening-artifacts/range-sim/pairs.csv": {
+    "sha256": "015e1dd4dacb5705b8e6ab8126c74e281ea41b93b38df54b824993d57ada84ed",
+    "status": "added"
+  },
+  "ai-ml/group_a_deterministic/test_group_a.py": {
+    "sha256": "c8a1f0683c5332796c9c22ef67fec50171c7f4328c98e65c80b6d505a0d5d7a7",
+    "status": "modified"
+  },
+  "ai-ml/group_b_nlp/lang_ner.py": {
+    "sha256": "9f5c12a114385f4367120027b0865b70b16a4d69c35ca65b4530688adf709579",
+    "status": "modified"
+  },
+  "ai-ml/group_b_nlp/test_group_b.py": {
+    "sha256": "eed62c5734e0e16a8fc9825816b969c2c13c107c707e992802675b4791292595",
+    "status": "modified"
+  },
+  "ai-ml/group_c_wallet_infra/test_group_c.py": {
+    "sha256": "1db837c219f30267258c49aae103fbca9615fefec426b1d6e3ced2332c4c53d6",
+    "status": "modified"
+  },
+  "ai-ml/group_c_wallet_infra/wallet_cluster.py": {
+    "sha256": "65763151e764a902f424933811d8b48ebae318b6edbae175545e37d70f42a081",
+    "status": "modified"
+  },
+  "ai-ml/group_d_embeddings/image_embeddings.py": {
+    "sha256": "73d6d351579612a009685149c81bdb246dd986696d0ce30b1a01853c93a3af55",
+    "status": "modified"
+  },
+  "ai-ml/group_d_embeddings/text_embeddings.py": {
+    "sha256": "bf68986d7941f69933d8dd4311ae313d45db714925db2507130cb9f831b49625",
+    "status": "modified"
+  },
+  "ai-ml/group_f_graph/co_occurrence.py": {
+    "sha256": "2ff0ad9bcdba482d93d90672827fd61c360b8fe5d3249c9b731d971affa0d993",
+    "status": "modified"
+  },
+  "ai-ml/group_g_llm_assist/hypothesis_generator.py": {
+    "sha256": "8deb99812aa27a866b06083b741074f89b9125f34112942a3ff2c75a942e246c",
+    "status": "modified"
+  },
+  "ai-ml/pramana/api.py": {
+    "sha256": "df4d4bcf5028c8cfbeb70ddc9d9f004c534f593f6dd568ab6c92d230aace68db",
+    "status": "modified"
+  },
+  "ai-ml/pramana/data.py": {
+    "sha256": "55b8b1ece0c35bd0c230a2c9f0ae2b6fe8509cd315b57d673acc5d3b9144ce77",
+    "status": "added"
+  },
+  "ai-ml/pramana/evaluate.py": {
+    "sha256": "cb87f20380d49543f4051a9cce2d41c75ff1a969f818a62a33c2ffef1cd9d0e3",
+    "status": "modified"
+  },
+  "ai-ml/pramana/range_sim.py": {
+    "sha256": "05522a7c745aee303a9c992da5f1154953cff069fcc5e316809732a4eab6f102",
+    "status": "modified"
+  },
+  "ai-ml/pramana/rarity.py": {
+    "sha256": "84ef7e0b80678c27d92d87436c64ecd82c1ea1f9bf04313b47d07e5d1c2788a0",
+    "status": "modified"
+  },
+  "ai-ml/pramana/score_pramana.py": {
+    "sha256": "ab75217ae412e357cfde66c362721cf363a561cc0ffc286fd5df2e126d4d9a46",
+    "status": "modified"
+  },
+  "ai-ml/pramana/sensitivity.py": {
+    "sha256": "c07e025e3c6fb91fc3a08ba9dcbaedb2c8c8469136c235ffc6e3b561610619d9",
+    "status": "modified"
+  },
+  "ai-ml/pramana/stub_features_a.py": {
+    "sha256": "57552d19cbacd4c1520acea98d0378e5524061a538f60f3065e1a25adaeb089a",
+    "status": "modified"
+  },
+  "ai-ml/tests/test_hardening.py": {
+    "sha256": "911424a70d65dfe0ddf1e16052724faf8025eea8893674c5a8898eeec374dde6",
+    "status": "added"
+  },
+  "hardening-artifacts/changed-files.json": {
+    "status": "added",
+    "sha256": null,
+    "note": "Self inventory; self hash intentionally omitted"
+  }
+}

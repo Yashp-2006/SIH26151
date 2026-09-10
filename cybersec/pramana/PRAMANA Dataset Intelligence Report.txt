@@ -1,0 +1,172 @@
+﻿PRAMANA Dataset Intelligence Report
+1. Executive Summary
+This report provides a verifiable reconnaissance of the provided public datasets to support the PRAMANA MVP for "Dark Web Threat Actor De-Anonymization." It maps documented dataset fields to the PRAMANA ontology, identifies false-attribution risks, prioritizes modules for MVP development, and outlines exact data transformations from raw records to derived evidence candidates.
+Crucially, PRAMANA's architecture outputs assessments built from evidence, counter-evidence, independence grouping, and fusion. Public datasets are strictly isolated as extraction and training sources; they are never treated as direct attribution ground truth. RANGE-SIM is the primary hidden-ground-truth evaluation environment; RANGE-TOR is the controlled testbed for infrastructure-fingerprinting validation.
+2. Dataset Field Inventory (Reported Candidates)
+Note: The following represents reported candidate fields based on standard documentation. Every field must be independently verified against the actual data archive before programming implementation begins.
+* Darknet Market Archives (Gwern, 2013–2015)
+   * Format: HTML scrapes / Text.
+   * Reported Candidate Fields: vendor_name, item_title, item_description, price (BTC/USD), shipping_origin, shipping_destination, PGP_public_key (regex-extractable text blocks), image_url, scrape_timestamp, review_text, rating.
+* BitcoinHeist (UCI ML Repository)
+   * Format: CSV tabular data (2009–2018).
+   * Reported Candidate Fields: address (Bitcoin address), year, day, length, weight, count, looped, neighbors, income (Satoshi), label (Ransomware family).
+* Stanford SNAP (Bitcoin OTC/Alpha)
+   * Format: CSV edge lists.
+   * Reported Candidate Fields: SOURCE (Node ID), TARGET (Node ID), RATING (-10 to +10), TIME (Unix timestamp).
+* Extended Brennan-Greenstein & PAN Datasets
+   * Format: Plain text documents with metadata.
+   * Reported Candidate Fields: author_id, document_text, topic_label, language.
+* Cambridge Cybercrime Centre (CrimeBB)
+   * Format: Relational DB / JSON.
+   * Reported Candidate Fields: forum_id, thread_id, post_id, author_username, post_text, timestamp, quote_parent_id.
+* s2w-ai/CoDA (Hugging Face)
+   * Format: JSON/TXT.
+   * Reported Candidate Fields: text_snippet, entity_span, entity_label (e.g., PERSON, ORG, WEAPON).
+3. Dataset to PRAMANA Mapping
+Dataset
+	Verified Field
+	PRAMANA Entity
+	PRAMANA Indicator
+	Evidence Family
+	Gwern
+	PGP_public_key
+	PGP Key
+	Fingerprint / key continuity
+	F1 (Crypto)
+	Gwern
+	vendor_name
+	Threat Actor
+	Moniker/Alias
+	Identity Indicator (per Blueprint)
+	Gwern
+	item_description
+	Listing/Content Artefact
+	content/template features
+	F5 (Content Artefacts)
+	Gwern (Derived)
+	Stylometric Features
+	Communication
+	Syntactic Structure
+	F6 (Stylometry)
+	BitcoinHeist
+	address
+	Wallet
+	BTC Address / Tx Data
+	F2 (Financial)
+	SNAP OTC
+	SOURCE / TARGET
+	Network Node
+	Interaction Graph Edge
+	Context / Topology (Not F4)
+	PAN
+	document_text
+	Communication
+	Linguistic Vector
+	F6 (Stylometry)
+	CrimeBB
+	author_username
+	Threat Actor
+	Moniker/Alias
+	Identity Indicator (per Blueprint)
+	Correction Note: BitcoinHeist dataset labels (e.g., Ransomware Family) are strictly for financial methodology and feature research; they must not be converted into PRAMANA threat-actor evidence without specific analytical justification. SNAP graph edges provide candidate context information and network topology; they do not automatically equal F4 Contact evidence.
+4. False-Correlation & False-Attribution Analysis
+Explicit failure modes that must be handled by PRAMANA's conflict-resolution logic.
+* Copied Artifacts & Mirrors (Gwern, CrimeBB): Scammers frequently copy legitimate vendor descriptions, images, and occasionally PGP keys. For example, 23 identical observations may represent 1 original artifact + 22 copies.
+   * Must Not Infer: Text or image matches across markets inherently prove same-actor identity.
+   * May Safely Infer: Canonicalization and clone relationships exist. PRAMANA must use hashing (SHA-256, SimHash) and shingle containment to anchor independence.
+* Dataset Bias & Temporal Ambiguity (Gwern): HTML scrape_timestamp represents when the collector observed the evidence, not the user's action time.
+   * Must Not Infer: The actor was actively online at scrape_timestamp.
+   * May Safely Infer: The listing or key existed by that time.
+* Shared Financial Infrastructure (BitcoinHeist, SNAP): Multiple distinct actors utilizing the same tumbling services, mixers, or exchange wallets.
+   * Must Not Infer: Two actors sending funds to the same address are the same physical person.
+   * May Safely Infer: The actors operated in the same financial ecosystem at similar times (useful for candidate pools, not specific attribution).
+* Template Fingerprinting vs. Stylometry: Darknet listings use rigid templates that mask organic author syntax. Standard stylometry (F6) is for unstructured text; rigid templates belong strictly to F5 (Content Artefacts).
+5. Raw vs. Derived Feature Map
+Distinction of what is directly available versus what must be explicitly computed by the PRAMANA pipeline to generate an evidence candidate.
+Dataset Base
+	Directly Present (Raw)
+	Derived Feature
+	Derivation Method
+	Output Type
+	Gwern
+	PGP_block
+	pgp_fingerprint
+	Deterministic Parsing (GnuPG)
+	PGP Key Entity / Fingerprint
+	Gwern
+	pgp_fingerprint / Account A
+	same_fingerprint_observed
+	Cross-identity match
+	Evidence supporting digital-identity continuity
+	Gwern
+	same_fingerprint_observed
+	candidate_same_operator
+	PRAMANA Rule / Fusion Input
+	F1 Supporting Evidence Hypothesis
+	PAN / Gwern
+	document_text
+	clean_text
+	Deterministic Tokenization
+	Linguistic Indicator
+	PAN / Gwern
+	clean_text
+	stylometric_vector
+	ML-assisted NLP
+	F6 Stylometric Feature
+	SNAP
+	CSV Row
+	interaction_graph
+	Deterministic Ingestion
+	Network Topology Context
+	SNAP
+	interaction_graph
+	network_position
+	Centrality Algorithms
+	Candidate/Context Information
+	6. MVP Priority Ranking
+Evaluated on implementation difficulty, accessibility, data quality, evidentiary value, and integration effort.
+1. BUILD NOW: Darknet Market Archives (Gwern)
+   * Justification: Provides multiple cyber modalities from one corpus (PGP metadata, content artifacts, template fingerprints, clone detection, NER, and entity-resolution examples).
+2. BUILD NOW: Cambridge Cybercrime Centre (CrimeBB)
+   * Justification: High value for timestamps, account/post relationships, behavioral/temporal intelligence, and linguistic context.
+3. BUILD NOW: RANGE-SIM & RANGE-TOR Integration
+   * Justification: Crucial immediate priority. This is the only controlled evaluation environment where the system proves it does not produce ridiculous false merges.
+4. BUILD LATER: Extended Brennan-Greenstein / PAN
+   * Justification: Essential baseline for the ML stylometry module (F6), but secondary to extracting core modalities from Gwern and CrimeBB.
+5. REFERENCE ONLY: Stanford SNAP & BitcoinHeist
+   * Justification: SNAP acts as a reference topology source for hub/independence analysis. BitcoinHeist is used for wallet/transaction feature research and financial methodology, not direct attribution ground truth.
+7. Implementation-Ready Transformation Table
+End-to-end transformation mappings for priority datasets.
+Provenance Requirement: For every derived field, record source dataset, source record/document ID, observation timestamp, event timestamp when available, transformation method/version, and provenance pointer. Clearly distinguish observation time from event time.
+Priority Source
+	Raw Record -> Normalized Field
+	Entity / Indicator
+	Evidence Candidate
+	Gwern
+	HTML <pre> block -> raw_pgp_block
+	Indicator: Fingerprint / key continuity
+	F1: Cryptographic continuity support
+	Gwern
+	HTML extraction -> item_description
+	Evidence: Listing/Content Artefact
+	F5: Content/Template Artefacts
+	CrimeBB
+	JSON Post -> post_text
+	Indicator: Unstructured Text
+	F6: Linguistic/Stylometric processing
+	SNAP
+	CSV Row -> SOURCE_ID, TARGET_ID
+	Indicator: Interaction Graph
+	Context: Topology/Candidate Pool
+	BitcoinHeist
+	CSV Row -> address
+	Indicator: BTC Address
+	F2: Financial Data / Feature Research
+	8. Cross-Dataset Dependency & Ground Truth Isolation
+* Dependency Warning: PRAMANA prevents automatic identity merging. If a Gwern vendor listing and a CrimeBB post reference the identical PGP key, this generates evidence supporting digital-identity continuity as a candidate hypothesis, which is passed to later resolution/fusion logic. It does not dictate a final attribution verdict.
+* Ground Truth Isolation: Public datasets (Gwern, CrimeBB, SNAP, PAN, etc.) are strictly Training / Extraction / Corroborating Data. They contain inherent noise, copies, and attacker manipulation. RANGE-SIM is the primary hidden-ground-truth evaluation environment; RANGE-TOR is the controlled testbed for infrastructure-fingerprinting validation.
+9. Major Conclusion Audit
+* VERIFIED FACT: Gwern contains raw PGP text blocks, not pre-computed fingerprints. Fields listed must be treated as candidates pending verification against the archive.
+* VERIFIED FACT: Scrape timestamp confirms when evidence was observed by the collector, not the exact moment of actor activity.
+* SOURCE-SUPPORTED INFERENCE: Darknet listing templates artificially skew stylometry metrics, necessitating a strict separation between F5 (Content Artefacts) and F6 (Stylometry).
+* DESIGN IMPLICATION: PRAMANA uses extracted data to form candidate hypotheses (e.g., "candidate same-operator") rather than absolute proof. Final system accuracy is exclusively scored against the hidden state matrices in RANGE-SIM.

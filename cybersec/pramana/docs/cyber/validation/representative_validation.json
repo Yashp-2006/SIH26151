@@ -1,0 +1,97 @@
+{
+  "validation_version": "cyber-bounded-validation-v1",
+  "extractor_version": "cyber-indicators-v1",
+  "archive_sha256": "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+  "scope": "first_two_CSV_members_only",
+  "members": [
+    {
+      "path": "grams/2014-06-09/1776.csv",
+      "records": 83,
+      "sha256": "d290f9caae27b73388cab9ab1a282ad6c8405f705af7f810fc4515ddfd2a1b9d"
+    },
+    {
+      "path": "grams/2015-04-20/Abraxas.csv",
+      "records": 4314,
+      "sha256": "9da13515007b3519668804b273158d65eb189677e743f49ea280b78cf19ccbd8"
+    }
+  ],
+  "normalized_records": 4397,
+  "structural_errors": 0,
+  "indicator_counts": {
+    "text_content": 8794,
+    "pgp_like_marker": 1
+  },
+  "validation_counts": {
+    "exact_source_span": 8794,
+    "unvalidated_pgp_material": 1
+  },
+  "span_replay_checks_passed": 8795,
+  "blocked_promotion_checks_passed": 8795,
+  "examples": {
+    "text_content:exact_source_span": {
+      "record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        1,
+        "grams/2014-06-09/1776.csv",
+        1
+      ],
+      "field_ref": [
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          1,
+          "grams/2014-06-09/1776.csv",
+          1
+        ],
+        6,
+        "name"
+      ],
+      "start": 0,
+      "end": 19,
+      "value_sha256": "b7805fdef71a5812e664bdb6697634f96f7f44a846d51ee74ac756b0ab1e9dc0",
+      "validation": "exact_source_span"
+    },
+    "pgp_like_marker:unvalidated_pgp_material": {
+      "record_id": [
+        "record",
+        "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+        2,
+        "grams/2015-04-20/Abraxas.csv",
+        4252
+      ],
+      "field_ref": [
+        [
+          "record",
+          "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+          2,
+          "grams/2015-04-20/Abraxas.csv",
+          4252
+        ],
+        7,
+        "description"
+      ],
+      "start": 1214,
+      "end": 1240,
+      "value_sha256": "c0da5e7cf43261d3528188b6a84e1af096f5dda201dd701c9a778228d39fbf0b",
+      "validation": "unvalidated_pgp_material"
+    }
+  },
+  "validated_evidence_candidates": 0,
+  "authoritative_evidence": 0,
+  "hub_population_qualification": "not_run",
+  "assessments": 0,
+  "limits": [
+    "No full-corpus ingestion",
+    "No ownership or attribution validation",
+    "No precision/recall or calibration measurement",
+    "No universal absence claims"
+  ],
+  "code_sha256": {
+    "cyber/indicators.py": "1ded90e2fba26498894e76e701ac3ca859be4b6d2a0448ac7b138f1cdd637766",
+    "cyber/policy.py": "d0afa905f2c48ba468e1dcc079f5d154b4bd04f0505750c11581d45c31320629",
+    "adapters/gwern_grams/normalizer.py": "5374da49a5cae568a8301b6f4a86f2762f95c8e38390e0322ded58b41a5af766",
+    "adapters/gwern_grams/runner.py": "dad5740f6dd25b6cffb2f93aa92c95b66e8e9829b43d19548747e4b14ab59166",
+    "adapters/gwern_grams/csv_parser.py": "51aa981a0420f33321bd4c2dd009d784ca13ae0aaccc509804f25e91cc954df3"
+  }
+}

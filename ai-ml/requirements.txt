@@ -1,0 +1,19 @@
+# Run: python -m spacy download en_core_web_sm  (after pip install -r requirements.txt)
+huggingface_hub
+datasets
+pgpy
+imagehash
+Pillow
+langdetect
+spacy
+pandas
+fastapi
+uvicorn
+pydantic
+python-dotenv
+
+# Local validation and Python 3.13 compatibility for PGPy 0.6.0
+pytest
+httpx
+networkx
+standard-imghdr; python_version >= "3.13"

@@ -1,0 +1,7 @@
+# cybersec/pramana gitignore
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# The large Grams dataset archive — DO NOT commit (315MB, pinned externally)
+grams.tar.xz

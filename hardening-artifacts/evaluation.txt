@@ -1,0 +1,22 @@
+==============================================================================
+PRAMANA | INDEPENDENCE-ACCOUNTING ABLATION      RANGE-SIM v0.1
+asserted priors: lambda=0.2  tau=12  k_min=2  ceiling=4.0  (design priors, NOT fitted)
+==============================================================================
+                                       NAIVE     no grouping       PRAMANA
+------------------------------------------------------------------------------
+FALSE-MERGE RATE                       29.8%            3.5%          1.5%
+false merges (count)                     239              28            12
+precision                              28.2%           75.2%         87.6%
+recall                                 94.9%           85.9%         85.9%
+F1                                     0.435           0.802         0.867
+------------------------------------------------------------------------------
+assessments REFUSED (k<2)                n/a                           803
+==============================================================================
+RESIDUAL FAILURES (12 remaining false merges):
+     10  PLANTED_HANDOVER
+      2  ordinary_negative
+
+  The handover cases are the residual risk named in the threat model:
+  a resold account genuinely inherits the seller's identifiers, so
+  correlation has no basis on which to separate the two operators.
+==============================================================================

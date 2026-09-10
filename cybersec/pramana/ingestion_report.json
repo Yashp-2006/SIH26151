@@ -1,0 +1,12 @@
+{
+  "archive_valid": true,
+  "archive_sha256": "0cecd5e78416328caf06614ee6a8fabee0d91b8aecddd9ca2d67f059ff7497d6",
+  "total_members": 7,
+  "csv_members": 7,
+  "non_csv_members": 0,
+  "accepted_members": 7,
+  "rejected_members": 0,
+  "total_records": 25000,
+  "field_issues": {},
+  "structural_errors_count": 0
+}

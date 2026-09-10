@@ -1,0 +1,13 @@
+{
+  "accounts": 137,
+  "generator": "RANGE-SIM-v0.1",
+  "operators": 60,
+  "pairs": 900,
+  "scope": "synthetic fixture only; labels are evaluation-only",
+  "seed": 26151,
+  "sha256": {
+    "accounts.json": "170f10edd30854e0ae8c697a2bb37a66be6d278c699b1cd080382793cd9b40e8",
+    "answer_key.csv": "20a418ae15d7bed99f96581fca7d4fc6ceef445269c22bb680ee545ce8979594",
+    "pairs.csv": "015e1dd4dacb5705b8e6ab8126c74e281ea41b93b38df54b824993d57ada84ed"
+  }
+}
