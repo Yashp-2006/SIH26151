@@ -46,6 +46,30 @@ SIH26151/
             temporal.py
             test_group_c.py
             wallet_cluster.py
+        group_d_embeddings/
+            __init__.py
+            image_embeddings.py
+            similarity_index.py
+            test_group_d.py
+            text_embeddings.py
+        group_e_classification/
+            __init__.py
+            category_tagger.py
+            evasion_detector.py
+            risk_classifier.py
+            test_group_e.py
+        group_f_graph/
+            __init__.py
+            co_occurrence.py
+            path_features.py
+            subgraph_extractor.py
+            test_group_f.py
+        group_g_llm_assist/
+            __init__.py
+            citation_validator.py
+            hypothesis_generator.py
+            prompt_builder.py
+            test_group_g.py
         hf-space/
             Dockerfile
             app.py
