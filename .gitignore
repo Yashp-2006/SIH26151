@@ -30,3 +30,6 @@ Thumbs.db
 .idea/
 .vscode/settings.json
 *.swp
+
+# build/upload artifacts
+*.zip

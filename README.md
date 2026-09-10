@@ -467,6 +467,29 @@ The `ai-ml/pramana` fusion demo is self-contained and needs no network. The HF
 dataset and Space are for the List-A/B extraction modules, which sit upstream of
 the fusion engine (the promotion boundary DC-06 is still deferred).
 
+### Component map
+
+Every team member's work is on `main`. The earlier prototype line is preserved as
+git tags `archive/*` (one per old branch) and its unique parts are folded in:
+
+| Path | What it is | Origin |
+|---|---|---|
+| `frontend/` | React 19 analyst console (primary UI) | `main` |
+| `backend/app/` | FastAPI gateway — fusion engine + `/nlp/*` | `main` |
+| `ai-ml/pramana/` | fusion engine, RANGE-SIM, ablation, API | `main` |
+| `ai-ml/group_a…g_*` | List-A / List-B extraction modules | `main` |
+| `ai-ml/pramana/features/` | F7 semantic + F8 behavioural evidence generators, `fit_priors.py` | `archive/data-ml-capabilities` |
+| `ai-ml/group_d_embeddings` · `FastTextMatcherLSH` | MinHash-LSH near-dup retrieval (O(1) at scale) | `archive/lsh-scalability` |
+| `ai-ml/shared/redaction.py` | strips List-A identifiers before List-B, to prevent leakage | `archive/lsh-scalability` |
+| `cybersec/` | offline deterministic cyber slice | `main` |
+| `ai-ml/cloudflare-workers/` | TypeScript edge port of the engine + extractors | `main` |
+| `experiments/streamlit-dashboard/` | early alternate UI (superseded) | `archive/frontend-dashboard` |
+| `backend/experimental/` | JWT + SQLite + Kafka draft for the durable ledger | `archive/enterprise-backend` |
+| `docs/historical/` | design notes from the earlier prototype | `archive/integration` |
+
+Optional extras (`scikit-learn` for F7, `datasketch` for LSH) are in
+`ai-ml/requirements-optional.txt`; the core demo needs none of them.
+
 ---
 
 ## 13. Future Scope

@@ -18,6 +18,12 @@ if str(_AIML_DIR) not in sys.path:
 
 from shared.contracts import EvidenceCandidate
 
+try:
+    from shared.redaction import redact_identifiers
+except ImportError:  # redaction util is optional
+    def redact_identifiers(text: str) -> str:
+        return text or ""
+
 DETECTOR_VERSION = "text_embeddings_v0.1"
 
 
@@ -87,3 +93,37 @@ def build_text_embedding_candidate(
         doc_ref=doc_ref,
         extra={"similarity_score": sim, "method": "text_embedding_cosine"},
     )
+
+
+# --- LSH scalability (from feature/lsh-scalability, archive/lsh-scalability) ---
+# Replaces the O(N^2) pairwise cosine scan with MinHash Locality-Sensitive
+# Hashing so millions of documents can be indexed and queried for near-matches.
+try:
+    from datasketch import MinHash, MinHashLSH
+except ImportError:
+    MinHash = None
+    MinHashLSH = None
+
+
+class FastTextMatcherLSH:
+    """O(1) near-duplicate retrieval over a large document set via MinHash LSH."""
+
+    def __init__(self, threshold: float = 0.7, num_perm: int = 128):
+        if MinHashLSH is None:
+            raise ImportError("datasketch is required for LSH: pip install datasketch")
+        self.lsh = MinHashLSH(threshold=threshold, num_perm=num_perm)
+        self.num_perm = num_perm
+        self.doc_store: dict[str, str] = {}
+
+    def _minhash(self, text: str) -> "MinHash":
+        m = MinHash(num_perm=self.num_perm)
+        for ngram in _char_ngram_vector(redact_identifiers(text)).keys():
+            m.update(ngram.encode("utf-8"))
+        return m
+
+    def insert(self, doc_id: str, text: str) -> None:
+        self.lsh.insert(doc_id, self._minhash(text))
+        self.doc_store[doc_id] = text
+
+    def query(self, text: str) -> list[str]:
+        return list(self.lsh.query(self._minhash(text)))
