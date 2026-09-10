@@ -1,17 +1,24 @@
 # Demo Video — SIH26151 (PRAMANA)
 
-The demo video showcases PRAMANA's end-to-end evidence processing, offline cyber review, and independence-aware Bayesian likelihood fusion engine.
+Walkthrough of PRAMANA — Darknet Intelligence & Evidence Fusion Platform.
 
 ## Demo Video Link
 
-`<PASTE_YOUTUBE_OR_GOOGLE_DRIVE_VIDEO_LINK_HERE>`
+https://drive.google.com/file/d/1xKxKNEzaDMOBwUQMwkx5YHu8MrsyR5nu/view?usp=sharing
+
+Verify it plays without a request-access prompt in an incognito window
+(sharing must be **Anyone with the link — Viewer**).
 
 ## What the Video Shows
 
-1. **Problem Context:** Why naive attribution fails in darknet ecosystems due to shared infrastructure, vendor migration, and planted decoys.
-2. **Deterministic Evidence Ingestion:** Live extraction of Bitcoin addresses, PGP keys, onion links, and template hashes from raw darknet posts.
-3. **Cyber Review & Suppression:** Execution of `run_cyber_demo.py` and inspection of the static HTML review packet (`docs/cyber/demo/review.html`) demonstrating hub account suppression.
-4. **Evidence Fusion Engine:** Execution of `python -m pramana.demo`, showing how independence discounting prevents false merges and refuses 100% of planted decoy pairs.
-5. **API & REST Surface:** Querying `/assess` and `/balance_sheet` endpoints to inspect human-interpretable evidence balance sheets.
-
-Make sure reviewers can access the video link without requesting permission.
+1. **The problem** — why naive additive scoring inflates confidence on mirrored
+   listings, shared market infrastructure and planted decoys.
+2. **The analyst console** — Overview metrics, then the **Evidence Balance Sheet**
+   for a persona pair: verbal band, the fusion waterfall (naive → independence
+   grouping → hub suppression → ceiling → counter-evidence), evidence by family.
+3. **Independence at work** — the Workspace shared-indicator graph, and the
+   planted-decoy case being **refused** (`k = 1 < 2`).
+4. **Evaluation** — the naive / no-grouping / PRAMANA ablation: false-merge rate
+   29.8% → 1.5%, 20/20 decoys refused.
+5. **Engine + gateway** — `python -m pramana.demo` and the FastAPI `/assess`,
+   `/balance_sheet`, `/nlp/*` routes.
