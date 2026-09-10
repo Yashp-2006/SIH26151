@@ -10,10 +10,10 @@
 
 ```
 SIH26151/
-├── ai-ml/        ← Evidence extraction, NLP, wallet/infra fingerprinting (List-A done; List-B coming)
-├── backend/      ← FastAPI server, PostgreSQL, auth, evidence ledger API  (planned)
-├── frontend/     ← React/TypeScript investigation dashboard               (planned)
-└── cybersec/     ← PRAMANA offline cyber review slice (IMPLEMENTED + TESTED)
+├── ai-ml/        ← Evidence extraction, NLP, wallet/infra fingerprinting (List-A Complete; List-B Pending)
+├── backend/      ← FastAPI server, PostgreSQL, auth, evidence ledger API (Planned)
+├── frontend/     ← React/TypeScript investigation dashboard              (Planned)
+└── cybersec/     ← PRAMANA offline cyber review slice                    (Implemented & Tested)
 ```
 
 ---
@@ -22,9 +22,9 @@ SIH26151/
 
 ### `ai-ml/` — PRAMANA Intelligence Engine
 
-Two delivery lists. **List-A is complete.** List-B is incoming.
+Two delivery lists. **List-A is complete.** List-B is pending.
 
-#### List-A — Deterministic Pipeline (✅ Done)
+#### List-A — Deterministic Pipeline (Complete)
 
 | Sub-module | Key files | Purpose |
 |---|---|---|
@@ -47,16 +47,34 @@ Two delivery lists. **List-A is complete.** List-B is incoming.
 | `POST /infra` | `{hosts[]}` | TLS/favicon fingerprint groups |
 | `POST /template` | `{text}` | SHA-256 template fingerprint |
 
-#### List-B — NLP/ML Models (🔜 Coming Soon)
+#### List-B — NLP/ML Models (Pending)
 
-| Planned sub-module | Purpose |
-|---|---|
-| `group_d_embeddings/` | Sentence-level embedding similarity across listings |
-| `group_e_classification/` | Multi-label classifier for threat category tagging |
-| `group_f_graph/` | Graph-based persona linking (co-address, co-vouching) |
-| `group_g_llm_assist/` | Gated LLM feature extraction (output cannot directly write evidence) |
+Four sub-modules, mirroring List-A's group structure. Every module returns feature-level
+`EvidenceCandidate` extensions only — none may write to `evidence`, `assessment`, or
+`must_not_link` directly (see Interface Contract above; promotion requires DC-01–DC-06).
 
-> **Boundary:** List-B outputs feed into `EvidenceCandidate` features only. Promotion to authoritative evidence requires DC-01–DC-06 resolution (see cybersec module).
+| Sub-module | Key files | Purpose |
+|---|---|---|
+| `group_d_embeddings/` | `text_embeddings.py`, `image_embeddings.py`, `similarity_index.py`, `test_group_d.py` | Sentence-level embedding similarity across listings/posts (paraphrase-robust, complements F5/F6 hash-based similarity); perceptual embedding similarity for images beyond exact pHash matches; ANN index (FAISS or brute-force cosine for prototype scale) for candidate retrieval |
+| `group_e_classification/` | `threat_classifier.py`, `category_tagger.py`, `confidence_calibration.py`, `test_group_e.py` | Multi-label classifier for threat/category tagging on listings and posts (drugs, weapons, fraud, digital-goods, etc.); per-label confidence score, not an identity or attribution signal |
+| `group_f_graph/` | `graph_builder.py`, `persona_linker.py`, `path_features.py`, `test_group_f.py` | Graph-based persona linking features: co-address, co-vouching, co-membership, shared-neighbor overlap; outputs graph-derived similarity/rarity features only — no automatic transitive closure or cluster merge decisions (that stays with cybersec/backend evidence-resolution stage) |
+| `group_g_llm_assist/` | `llm_extractor.py`, `evidence_summarizer.py`, `citation_validator.py`, `test_group_g.py` | Gated LLM-assisted feature extraction (entity/relationship suggestions, natural-language evidence summaries); every output must carry a source citation and pass `citation_validator.py` before being staged — output cannot directly write evidence, per project AI/ML governance rule |
+
+**Shared constraints across all four groups:**
+- All feature outputs use the frozen `EvidenceCandidate` shape from `shared/contracts.py` — put anything not covered by existing fields into `extra`, never a new top-level field.
+- No module may output a merge/match decision, a pair score used as final confidence, or a persona/identity claim — these remain deferred pending DC-06.
+- Each module must include a `test_group_x.py` validating against the existing `data/` fixtures (and any new fixtures it adds), matching List-A's test convention.
+- CPU-only where feasible; if `group_d_embeddings` needs a model over ~300MB (e.g. a larger sentence-transformer), call it via a hosted API/HF Inference route rather than bundling it into the Cloudflare Worker or local test run.
+
+**Deployment target:** same split as List-A — lightweight feature math (e.g. `path_features.py`, `category_tagger.py` scoring) can go on Cloudflare Workers; embedding/classification/LLM modules needing real models go on the `hf-space/` FastAPI service.
+
+**Before starting `group_f_graph`:** read `cybersec/pramana/PRAMANA_Master_Blueprint.md` Section 7 on
+entity resolution — this module must stay feature-generation only and must not make origin/k decisions
+or emit pair scores, per the Interface Contract table above.
+
+**Before starting `group_g_llm_assist`:** read `cybersec/pramana/cyber/review.py` and `policy.py` for
+the existing citation-gated, non-authoritative promotion pattern (see the `"blocked_DC-06"` demo output)
+— `citation_validator.py` should follow the same pattern rather than inventing a new one.
 
 ---
 
@@ -68,18 +86,18 @@ Deterministic offline evidence review. **Fully implemented and tested.** No mode
 
 | Component | Path | Status | Description |
 |---|---|---|---|
-| Archive reader | `pramana/adapters/gwern_grams/archive_reader.py` | ✅ IMPL + TESTED | Reads pinned `grams.tar.xz`, verifies SHA-256 digest |
-| CSV normalizer | `pramana/adapters/gwern_grams/normalizer.py` | ✅ IMPL + VALIDATED | Exact raw-field preservation, unknown-time handling, provenance IDs |
-| Exact repetition | `pramana/canonicalization/runner.py` | ✅ IMPL + TESTED | Deterministic exact/near-match comparison operands |
-| Text spans + PGP | `pramana/cyber/indicators.py` | ✅ IMPL + VALIDATED | 8,794 real spans + 1 PGP-like marker in bounded validation |
-| Bitcoin format | `pramana/cyber/indicators.py` | ✅ IMPL + TESTED | Legacy Base58Check lexical validation (zero real matches in sample) |
-| Hub restriction | `pramana/cyber/policy.py` | ✅ IMPL + TESTED | >12 account rule for declared BTC populations |
-| Clone restriction | `pramana/cyber/policy.py` | ✅ IMPL + TESTED | Externally declared occurrence-scope suppression |
-| Review packet/HTML | `pramana/cyber/review.py`, `render.py` | ✅ IMPL + TESTED | Offline JSON + escaped static HTML viewer |
-| Evidence promotion | — | 🔴 DEFERRED (DC-06) | Requires field-level contract + ML/Cyber/EV sign-off |
-| Persistent ledger/API | — | 📋 SPECIFIED | Planned FastAPI + PostgreSQL (backend module) |
-| F6–F9 generators | — | 📋 SPECIFIED / DEFERRED | Linguistic style, social/trust, external corroboration |
-| RANGE-SIM / RANGE-TOR | — | 📋 SPECIFIED | Separate evaluation manifests required |
+| Archive reader | `pramana/adapters/gwern_grams/archive_reader.py` | Implemented & Tested | Reads pinned `grams.tar.xz`, verifies SHA-256 digest |
+| CSV normalizer | `pramana/adapters/gwern_grams/normalizer.py` | Implemented & Validated | Exact raw-field preservation, unknown-time handling, provenance IDs |
+| Exact repetition | `pramana/canonicalization/runner.py` | Implemented & Tested | Deterministic exact/near-match comparison operands |
+| Text spans + PGP | `pramana/cyber/indicators.py` | Implemented & Validated | 8,794 real spans + 1 PGP-like marker in bounded validation |
+| Bitcoin format | `pramana/cyber/indicators.py` | Implemented & Tested | Legacy Base58Check lexical validation (zero real matches in sample) |
+| Hub restriction | `pramana/cyber/policy.py` | Implemented & Tested | >12 account rule for declared BTC populations |
+| Clone restriction | `pramana/cyber/policy.py` | Implemented & Tested | Externally declared occurrence-scope suppression |
+| Review packet/HTML | `pramana/cyber/review.py`, `render.py` | Implemented & Tested | Offline JSON + escaped static HTML viewer |
+| Evidence promotion | — | Deferred (DC-06) | Requires field-level contract + ML/Cyber/EV sign-off |
+| Persistent ledger/API | — | Specified | Planned FastAPI + PostgreSQL (backend module) |
+| F6–F9 generators | — | Specified / Deferred | Linguistic style, social/trust, external corroboration |
+| RANGE-SIM / RANGE-TOR | — | Specified | Separate evaluation manifests required |
 
 **Demo output (reproducible, no archive needed):**
 ```json
@@ -132,7 +150,7 @@ Deterministic offline evidence review. **Fully implemented and tested.** No mode
 
 ```
 RAW OBSERVATION  →  DETERMINISTIC DERIVATION  →  ML FEATURE  →  EVIDENCE CANDIDATE
-   (cybersec)            (cybersec/canon)          (ai-ml)          ⚠ DEFERRED
+   (cybersec)            (cybersec/canon)          (ai-ml)          [DEFERRED]
                                                                    requires DC-01–DC-06
 ```
 
@@ -180,11 +198,11 @@ npx wrangler deploy   # deploys to *.workers.dev
 
 | Module | Status | Notes |
 |---|---|---|
-| `ai-ml` List-A | ✅ Complete | 6 Python modules + TypeScript Worker + tests |
-| `ai-ml` List-B | 🔜 Coming soon | NLP/ML model layer |
-| `cybersec` | ✅ Implemented + tested | 76 passing tests, bounded real validation |
-| `backend` | 📋 Planned | Needs DC-06 before evidence tables |
-| `frontend` | 📋 Planned | Needs backend API first |
+| `ai-ml` List-A | Complete | 6 Python modules + TypeScript Worker + tests |
+| `ai-ml` List-B | Pending | NLP/ML model layer |
+| `cybersec` | Implemented & Tested | 76 passing tests, bounded real validation |
+| `backend` | Planned | Needs DC-06 before evidence tables |
+| `frontend` | Planned | Needs backend API first |
 
 ---
 
