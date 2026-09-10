@@ -1,0 +1,11 @@
+# HF Space runtime deps — CPU-only, no torch/tensorflow
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic>=2.7,<3
+pgpy==0.6.0
+imagehash==4.3.1
+Pillow>=10.0,<12
+langdetect==1.0.9
+spacy==3.7.6
+pandas>=2.0,<3
+python-dotenv==1.0.1

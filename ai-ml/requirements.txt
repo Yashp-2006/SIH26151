@@ -1,0 +1,13 @@
+# Run: python -m spacy download en_core_web_sm  (after pip install -r requirements.txt)
+huggingface_hub
+datasets
+pgpy
+imagehash
+Pillow
+langdetect
+spacy
+pandas
+fastapi
+uvicorn
+pydantic
+python-dotenv

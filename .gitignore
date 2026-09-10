@@ -1,0 +1,32 @@
+# Root gitignore for SIH26151
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+.env
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+
+# Node / Cloudflare Workers
+node_modules/
+.wrangler/
+dist/
+*.js.map
+
+# Environment secrets — NEVER commit
+.env
+.dev.vars
+secrets.json
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+*.swp
