@@ -1,28 +1,19 @@
-# Project Screenshots — SIH26151 (PRAMANA)
+# Screenshots — SIH26151 (PRAMANA)
 
-Store important screenshots, architecture figures, and validation photos of the PRAMANA platform in this folder.
+Captures of the running analyst console (`frontend/`) with the gateway (`backend/`) live.
+1440 px, 2× density.
 
-## Recommended Screenshots
+| File | View |
+|---|---|
+| `01-landing.png` | Landing page — the problem, the evidence-ledger schematic panel |
+| `02-overview.png` | Console overview — RANGE-SIM headline metrics and the three attribution cases |
+| `03-evidence-balance-sheet.png` | Evidence Balance Sheet — verdict, "how the number is built" waterfall, evidence by family, counter-evidence, limitations |
+| `04-investigation-workspace.png` | Investigation Workspace — shared-indicator graph between two personas |
+| `05-assessment-review.png` | Assessment & Review — sequential-unmasking review gate |
+| `06-evaluation-ablation.png` | Evaluation — naive / no-grouping / PRAMANA ablation table |
+| `07-api-docs.png` | FastAPI gateway OpenAPI docs (`:8000/docs`) |
 
-- `01-architecture-overview.png` — End-to-end PRAMANA architecture and data pipeline
-- `02-evidence-balance-sheet.png` — Evidence Balance Sheet with family breakdowns and discount traces
-- `03-offline-cyber-review.png` — Offline HTML review viewer (`docs/cyber/demo/review.html`)
-- `04-wallet-clustering.png` — Co-spend Bitcoin transaction clustering graph
-- `05-temporal-overlap.png` — Temporal activity window alignment and timezone analysis
-- `06-api-swagger-ui.png` — Interactive FastAPI documentation (`/docs`) showing `/assess` and `/balance_sheet`
-- `07-worker-routes.png` — Cloudflare Workers edge deployment verification
+Regenerate: run the gateway (`:8000`) and `frontend` (`:5173`), then drive the app
+with a headless browser (Playwright/Puppeteer) capturing each view.
 
-## Naming Convention
-
-Use clear, standardized filenames:
-- `01-*.png` / `02-*.png` for sequential walkthroughs
-- Maximum resolution: 1920x1080
-- Do not commit images containing real credentials, live API keys, private passwords, or unredacted confidential data.
-
-## Linking in README
-
-Display screenshots in `README.md` using relative paths:
-
-```markdown
-![Evidence Balance Sheet](assets/screenshots/02-evidence-balance-sheet.png)
-```
+Do not commit images containing real credentials or unredacted confidential data.

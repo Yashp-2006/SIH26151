@@ -344,16 +344,23 @@ The demonstration video showcases PRAMANA's end-to-end evidence ingestion, offli
 
 ## 10. Screenshots / Prototype Photos
 
-Visual artifacts, dashboard wireframes, and balance sheet inspect windows are cataloged in `assets/screenshots/`.
+Captures of the running analyst console are in [`assets/screenshots/`](assets/screenshots/).
 
-- **Screenshot Directory:** [assets/screenshots/](assets/screenshots/)
-- **Catalog:** See [assets/screenshots/README.md](assets/screenshots/README.md) for details on naming conventions and screenshots inventory.
+![Landing](assets/screenshots/01-landing.png)
 
-| Preview Item | Location | Description |
+![Evidence Balance Sheet](assets/screenshots/03-evidence-balance-sheet.png)
+
+![Evaluation ablation](assets/screenshots/06-evaluation-ablation.png)
+
+| # | File | View |
 |---|---|---|
-| Architecture Diagram | `assets/screenshots/01-architecture-overview.png` | End-to-end multi-tier pipeline schematic |
-| Evidence Balance Sheet | `assets/screenshots/02-evidence-balance-sheet.png` | Itemized audit trace showing family discounts |
-| Offline Cyber Review Viewer | `assets/screenshots/03-offline-cyber-review.png` | Standalone static HTML viewer (`docs/cyber/demo/review.html`) |
+| 01 | `01-landing.png` | Landing — the problem, the evidence-ledger schematic |
+| 02 | `02-overview.png` | Console overview — RANGE-SIM headline metrics + the three cases |
+| 03 | `03-evidence-balance-sheet.png` | Evidence Balance Sheet — verdict, fusion waterfall, per-family evidence |
+| 04 | `04-investigation-workspace.png` | Workspace — shared-indicator graph between two personas |
+| 05 | `05-assessment-review.png` | Assessment & Review — sequential-unmasking gate |
+| 06 | `06-evaluation-ablation.png` | Evaluation — naive / no-grouping / PRAMANA ablation |
+| 07 | `07-api-docs.png` | FastAPI gateway `/docs` — `/assess`, `/balance_sheet`, `/nlp/*` |
 
 ---
 
