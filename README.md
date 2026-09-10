@@ -75,9 +75,8 @@ PRAMANA employs a robust, hybrid architecture engineered for both ultra-low late
 
 | Layer / Subsystem | Technology & Frameworks | Version / Spec | Architecture Role & Operational Purpose |
 |---|---|---|---|
-| **Frontend & UI (Planned)** | React 18, TypeScript, Vite, TailwindCSS | React 18, TS 5.x | Interactive analyst workbench: persona ego-network exploration, temporal overlap alignment, and evidence balance sheet inspection. |
-| **Graph & Visual Analytics** | Cytoscape.js, D3.js, Chart.js | Modern ESM | Interactive topological graph rendering, co-spend transaction cluster visualization, and diurnal activity density charts. |
-| **API & Service Gateway** | FastAPI, Pydantic v2, Starlette, Uvicorn | FastAPI >= 0.110.0, Python 3.11/3.13 | Asynchronous, high-throughput REST API serving `/assess`, `/precompute`, and `/balance_sheet` endpoints with OpenAPI auto-docs. |
+| **Frontend & UI** | React 19, TypeScript, Vite, Tailwind v4, jsPDF | React 19, TS 6.x | Analyst console: Overview, Evidence Balance Sheet, Investigation Workspace, Assessment & Review, Evaluation. Editorial landing (Newsreader). Sealed-report PDF export. Reads the gateway when up, else a frozen engine snapshot. |
+| **API & Service Gateway** | FastAPI, Pydantic v2, Starlette, Uvicorn, httpx | FastAPI >= 0.110.0, Python 3.11/3.13 | `backend/app/` — imports the fusion engine in-process, precomputes every pair, serves `/health` `/assess` `/balance_sheet` `/metrics` `/demo` and the `/nlp/*` List-A/B routes with CORS + OpenAPI docs. |
 | **Edge Serverless Compute** | Cloudflare Workers, TypeScript, Wrangler CLI | Node.js 20+, Wrangler 3.x | Sub-10ms global edge execution across 7 REST routes for deterministic regex extraction, IDF rarity scoring, and template hashing. |
 | **Cyber Intelligence Slice** | Python Standard Library (`tarfile`, `hashlib`, `re`) | Python 3.13.7 / 3.11.9 | 100% standard library offline forensic ingestion (`gwern_grams`), SHA-256 digest validation, Base58Check decoding, and air-gapped HTML review generation. |
 | **NLP & Stylometry** | spaCy (`en_core_web_sm`), Langdetect | spaCy >= 3.7.0 | Natural language identification, Named Entity Recognition, stylometric sentence/punctuation profiling, and author style-shift tracking. |
@@ -100,7 +99,7 @@ Detailed system architecture specifications, subsystem interface contracts, and 
 ```text
 +---------------------------------------------------------------------------------------------------+
 |                                      ANALYST / CLIENT TIER                                        |
-|   - React 18 / TypeScript Investigation Dashboard (Interactive Ego-Networks, Timelines, Ledgers)   |
+|   - React 19 / TypeScript Analyst Console (Balance Sheet, Workspace, Review, Evaluation, PDF)      |
 |   - Air-gapped Offline Static HTML Review Viewer (docs/cyber/demo/review.html)                    |
 +---------------------------------------------------------------------------------------------------+
                                                   |
@@ -182,8 +181,8 @@ SIH26151/
 │       └── README.md          # Screenshot inventory, examples, and conventions
 ├── ai-ml/                     # Feature extraction engines, ML models, and Fusion Engine
 ├── cybersec/                  # PRAMANA offline cyber review slice, adapters, and policies
-├── backend/                   # Planned FastAPI REST service and PostgreSQL ledger
-└── frontend/                  # Planned React/TypeScript investigation dashboard
+├── backend/                   # FastAPI gateway over the fusion engine + List-A/B routes
+└── frontend/                  # React + Vite analyst console (landing + portal)
 ```
 
 ### What Goes Where?
@@ -239,12 +238,12 @@ SIH26151/
 | **CS-05: Documentation & Evidence** | `cybersec/pramana/docs/` + Dossiers | `docs/cyber/` (`demo/review.html`, `validation/pytest.xml`), `PRAMANA_Master_Blueprint.md`, `PRAMANA_Technical_Project_Dossier.pdf` | Frozen policy contracts (`PRAMANA_CYBER_INTELLIGENCE_SPEC_v1.md`), technical blueprints, reproduction manuals, and validation logs. |
 | **CS-06: Verification & QA Assets** | `cybersec/pramana/hatch-runs/` | `starjotaro-v2/` (`decoded/`, `final/`, `qa/`, `source/`) | Prototype verification assets, assembly manifests, contact sheets, and anchor alignments for UI and report rendering. |
 
-#### Table 7.4: `backend/` and `frontend/` Sub-modules (Planned Platform Services)
+#### Table 7.4: `backend/` and `frontend/` Sub-modules (Platform Services)
 
-| Module | Directory | Planned Components | Architecture Role |
+| Module | Directory | Components | Architecture Role |
 |---|---|---|---|
-| **Backend Service** | `backend/` | `app/main.py` (FastAPI gateway), `requirements.txt` | Imports `ai-ml/pramana` directly, precomputes all pairs, serves `/health` `/accounts` `/pairs` `/assess` `/balance_sheet` `/metrics` `/demo` with CORS for the dashboard. Persistence (PostgreSQL ledger, auth, Z1–Z4) stays deferred. |
-| **Investigation Frontend** | `frontend/` | React 18 + TypeScript + Vite + Tailwind, `scripts/gen_snapshot.py` | Analyst dashboard: Overview, Evidence Balance Sheet, Workspace, Assessment & Review, Evaluation. Reads the backend when up, falls back to `public/snapshot.json` (frozen engine output). |
+| **Backend Gateway** | `backend/app/` | `main.py`, `nlp.py`, `requirements.txt` | Imports `ai-ml/pramana` in-process, precomputes all pairs, serves `/health` `/accounts` `/pairs` `/assess` `/balance_sheet` `/metrics` `/demo` plus `/nlp/*` (List-A/B, local or HF-Space proxy). CORS for the dashboard; serves `frontend/dist` at `/` when built. Persistence (PostgreSQL ledger, auth, Z1–Z4) stays deferred. |
+| **Analyst Console** | `frontend/` | React 19 + TS + Vite + Tailwind v4, `src/`, `scripts/gen_snapshot.py` | Landing + portal (Overview, Evidence Balance Sheet, Workspace, Assessment & Review, Evaluation). Sealed-report PDF export. Reads the gateway when up, else `public/snapshot.json`. |
 
 #### Table 7.5: Reference Submission & Governance Scaffolding
 
@@ -282,6 +281,15 @@ SIH26151/
 | `POST` | `/assess` | Score persona pair given `{account_a, account_b, include_naive?}` |
 | `POST` | `/precompute` | Evaluates all candidate pairs at startup into an in-memory cache |
 | `GET` | `/balance_sheet/{a}/{b}` | Outputs complete Evidence Balance Sheet with family breakdowns and discount traces |
+
+### Backend Gateway Routes (`backend/app/`, served at `:8000`)
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/accounts` · `/pairs` | RANGE-SIM personas and candidate pairs with ground truth |
+| `GET` | `/metrics` · `/demo` | RANGE-SIM ablation; the three curated demo cases |
+| `GET` | `/nlp/status` | which List-A/B path is live (local modules vs HF Space) |
+| `POST` | `/nlp/extract` · `/nlp/canonicalise` · `/nlp/stylometry` | List-A/B extraction, run in-process from `ai-ml/`, or proxied to the HF Space |
 
 ---
 
@@ -463,8 +471,8 @@ the fusion engine (the promotion boundary DC-06 is still deferred).
 
 ## 13. Future Scope
 
-1. **Persistent Evidence Ledger:** Implement PostgreSQL 16 storage with immutable hash-chained audit trails and explicit retraction logs for analyst contestability.
-2. **Interactive Analyst Workbench:** Deploy a React 18 / TypeScript frontend featuring interactive graph ego-network visualization and co-spend transaction clustering.
+1. **Persistent Evidence Ledger:** Move from the in-process gateway to PostgreSQL 16 storage with immutable hash-chained audit trails and explicit retraction propagation for analyst contestability.
+2. **Evidence Promotion (DC-06):** Wire the List-A/B extractors (`/nlp/*`) through a validated promotion contract into the fusion engine, so the console runs on live-extracted evidence rather than the `stub_features_a` bridge.
 3. **Live Tor Hidden Service Crawling:** Add an asynchronous, rate-limited Onionscan / Tor crawler daemon feeding directly into the deterministic canonicalization pipeline.
 4. **RANGE-TOR Evaluation:** Scale the benchmark evaluation from the synthetic RANGE-SIM corpus to historical, unsealed darknet market law enforcement takedown datasets.
 
